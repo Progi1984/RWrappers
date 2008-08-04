@@ -177,6 +177,7 @@
   ; then the 3D flags (BASS_SAMPLE_3D And BASS_MUSIC_3D) are ignored when
   ; loading/creating a sample/stream/music. 
   #BASS_DEVICE_LATENCY	= 256	; calculate device latency (BASS_INFO struct)
+  #BASS_DEVICE_CSPEAKERS= 1024	; detect speakers via Windows control panel
   #BASS_DEVICE_SPEAKERS = 2048	; force enabling of speaker assignment
   #BASS_DEVICE_NOSPEAKER= 4096	; ignore speaker arrangement
   
@@ -248,17 +249,18 @@
   #BASS_MUSIC_DECODE		  = #BASS_STREAM_DECODE ; don't play the music, only decode (BASS_ChannelGetData)
   #BASS_MUSIC_PRESCAN		  = #BASS_STREAM_PRESCAN	; calculate playback length
   #BASS_MUSIC_CALCLEN		  = #BASS_MUSIC_PRESCAN
-  #BASS_MUSIC_RAMP			  = $200	; normal ramping
-  #BASS_MUSIC_RAMPS		    = $400	; sensitive ramping
-  #BASS_MUSIC_SURROUND		= $800	; surround sound
-  #BASS_MUSIC_SURROUND2	  = $1000	; surround sound (mode 2)
-  #BASS_MUSIC_FT2MOD		  = $2000	; play .MOD As FastTracker 2 does
-  #BASS_MUSIC_PT1MOD		  = $4000	; play .MOD As ProTracker 1 does
+  #BASS_MUSIC_RAMP			  = $200	  ; normal ramping
+  #BASS_MUSIC_RAMPS		    = $400	  ; sensitive ramping
+  #BASS_MUSIC_SURROUND		= $800	  ; surround sound
+  #BASS_MUSIC_SURROUND2	  = $1000	  ; surround sound (mode 2)
+  #BASS_MUSIC_FT2MOD		  = $2000	  ; play .MOD As FastTracker 2 does
+  #BASS_MUSIC_PT1MOD		  = $4000	  ; play .MOD As ProTracker 1 does
   #BASS_MUSIC_NONINTER		= $10000	; non-interpolated mixing
-  #BASS_MUSIC_POSRESET		= $8000	; stop all notes when moving position
-  #BASS_MUSIC_POSRESETEX	= $400000; stop all notes And reset bmp/etc when moving position
+  #BASS_MUSIC_SINCINTER	  = $800000 ; sinc interpolated sample mixing
+  #BASS_MUSIC_POSRESET		= $8000	  ; stop all notes when moving position
+  #BASS_MUSIC_POSRESETEX	= $400000 ; stop all notes And reset bmp/etc when moving position
   #BASS_MUSIC_STOPBACK		= $80000	; stop the music on a backwards jump effect
-  #BASS_MUSIC_NOSAMPLE		= $100000; don't load the samples
+  #BASS_MUSIC_NOSAMPLE		= $100000 ; don't load the samples
   
   ; Speaker assignment flags
   #BASS_SPEAKER_FRONT	    = $1000000	; front speakers
@@ -366,6 +368,11 @@
   
   #BASS_STREAMPROC_END		= $80000000	; End of user stream flag
   
+  ; BASS_StreamCreateFileUser file systems
+  #STREAMFILE_NOBUFFER		= 0
+  #STREAMFILE_BUFFER		  = 1
+  #STREAMFILE_BUFFERPUSH	= 2
+    
   ; BASS_StreamGetFilePosition modes
   #BASS_FILEPOS_CURRENT	  = 0
   #BASS_FILEPOS_DECODE		= #BASS_FILEPOS_CURRENT
@@ -373,6 +380,8 @@
   #BASS_FILEPOS_END		    = 2
   #BASS_FILEPOS_START		  = 3
   #BASS_FILEPOS_CONNECTED	= 4
+  #BASS_FILEPOS_BUFFER		= 5
+  #BASS_FILEPOS_SOCKET		= 6
   
   ; STREAMFILEPROC actions
   #BASS_FILE_CLOSE		    = 0
@@ -427,7 +436,7 @@
   ; Sync when the "sync" effect (XM/MTM/MOD: E8x/Wxx, IT/S3M: S2x) is used.
   ; param: 0:Data=pos, 1:Data="x" value
   ; Data : param=0: LOWORD=order HIWORD=row, param=1: "x" value 
-  #BASS_SYNC_MESSAGE	    = $20000000	; FLAG: post a Windows message (instead of callback)
+  #BASS_SYNC_OGG_CHANGE   = 12
   ; When using a window message "callback", the message To post is given in the "proc"
   ; parameter of BASS_ChannelSetSync, And is posted To the window specified in the BASS_Init
   ; call. The message parameters are: WPARAM = Data, LPARAM = user. 
@@ -438,11 +447,12 @@
   ; BASS_ChannelGetData flags
   #BASS_DATA_AVAILABLE	  = 0			; query how much Data is buffered
   #BASS_DATA_FLOAT		    = $40000000	; flag: Return floating-point sample Data
-  #BASS_DATA_FFT512	      = $80000000	; 512 sample FFT
-  #BASS_DATA_FFT1024	    = $80000001	; 1024 FFT
-  #BASS_DATA_FFT2048	    = $80000002	; 2048 FFT
-  #BASS_DATA_FFT4096	    = $80000003	; 4096 FFT
-  #BASS_DATA_FFT8192	    = $80000004	; 8192 FFT
+  #BASS_DATA_FFT256	      = $80000000	; 256 sample FFT
+  #BASS_DATA_FFT512	      = $80000001	; 512 sample FFT
+  #BASS_DATA_FFT1024	    = $80000002	; 1024 FFT
+  #BASS_DATA_FFT2048	    = $80000003	; 2048 FFT
+  #BASS_DATA_FFT4096	    = $80000004	; 4096 FFT
+  #BASS_DATA_FFT8192	    = $80000005	; 8192 FFT
   #BASS_DATA_FFT_INDIVIDUAL = $10	; FFT flag: FFT For each channel, Else all combined
   #BASS_DATA_FFT_NOWINDOW	= $20	; FFT flag: no Hanning window
   
@@ -462,15 +472,20 @@
   #BASS_TAG_MUSIC_SAMPLE	= $10300	; + sample #, MOD sample name : ANSI string
   
   ; BASS_MusicSet/GetAttribute options
-  #BASS_MUSIC_ATTRIB_AMPLIFY	= 0
-  #BASS_MUSIC_ATTRIB_PANSEP	  = 1
-  #BASS_MUSIC_ATTRIB_PSCALER	= 2
-  #BASS_MUSIC_ATTRIB_BPM		  = 3
-  #BASS_MUSIC_ATTRIB_SPEED		= 4
-  #BASS_MUSIC_ATTRIB_VOL_GLOBAL = 5
-  #BASS_MUSIC_ATTRIB_VOL_CHAN	= $100 ; + channel #
-  #BASS_MUSIC_ATTRIB_VOL_INST	= $200 ; + instrument #
-  
+  #BASS_ATTRIB_FREQ			      = 1
+  #BASS_ATTRIB_VOL				    = 2
+  #BASS_ATTRIB_PAN				    = 3
+  #BASS_ATTRIB_EAXMIX			    = 4
+  #BASS_ATTRIB_MUSIC_AMPLIFY	= $100
+  #BASS_ATTRIB_MUSIC_PANSEP	  = $101
+  #BASS_ATTRIB_MUSIC_PSCALER	= $102
+  #BASS_ATTRIB_MUSIC_BPM		  = $103
+  #BASS_ATTRIB_MUSIC_SPEED		= $104
+  #BASS_ATTRIB_MUSIC_VOL_GLOBAL = $105
+  #BASS_ATTRIB_MUSIC_VOL_CHAN	= $200 ; + channel #
+  #BASS_ATTRIB_MUSIC_VOL_INST	= $300 ; + instrument #
+
+
   #BASS_FX_PHASE_NEG_180      = 0
   #BASS_FX_PHASE_NEG_90       = 1
   #BASS_FX_PHASE_ZERO         = 2
@@ -510,7 +525,6 @@
   ; BASS_Set/GetConfig options
   #BASS_CONFIG_BUFFER			    = 0
   #BASS_CONFIG_UPDATEPERIOD	  = 1
-  #BASS_CONFIG_MAXVOL			    = 3
   #BASS_CONFIG_GVOL_SAMPLE		= 4
   #BASS_CONFIG_GVOL_STREAM		= 5
   #BASS_CONFIG_GVOL_MUSIC		  = 6
@@ -528,6 +542,8 @@
   #BASS_CONFIG_REC_BUFFER		  = 19
   #BASS_CONFIG_NET_PLAYLIST	  = 21
   #BASS_CONFIG_MUSIC_VIRTUAL	= 22
+  #BASS_CONFIG_VERIFY			    = 23
+  #BASS_CONFIG_UPDATETHREADS	= 24
 ;}
 ;{ Enumerations
   ; DX8 effect types use With BASS_ChannelSetFX
@@ -600,6 +616,11 @@
   	driver.s	  ; driver
   	freq.l		  ; current input rate (OSX only)
   EndStructure 
+  Structure BASS_DEVICEINFO
+  	name.s	    ; description
+  	driver.s	  ; driver
+  	flags.l		  ; 
+  EndStructure 
   ; Sample info Structure & flags
   Structure BASS_SAMPLE
   	freq.l		; Default playback rate
@@ -633,6 +654,8 @@
   	ctype.l	        ; type of channel
   	origres.l	      ; original resolution
   	plugin.HPLUGIN  ; plugin
+  	sample.HSAMPLE  ; sample
+  	filename.s
   EndStructure
   Structure BASS_PLUGINFORM
   	ctype.l		; channel type
@@ -722,14 +745,10 @@
 ;}
 ;{ Callbacks 
   ;-CB_STREAMPROC(*buffer, length.l, user.l)
-  ;-CB_STREAMFILEPROC(action.l, param1.l, param2.l,user.l)
-  ; User file stream callback function.
-  ; action : The action To perform one of BASS_FILE_xxx values.
-  ; param1 : Depends on "action"
-  ; param2 : Depends on "action"
-  ; user   : The 'user' parameter value given when calling BASS_StreamCreate
-  ; Return : Depends on "action" 
-  
+  ;-CB_FILECLOSEPROC(*user)
+  ;-CB_FILELENPROC(*user)
+  ;-CB_FILEREADPROC(*buffer, length.l, *user)
+  ;-CB_FILESEEKPROC(offset.l, *user)
   ;-CB_DOWNLOADPROC(*buffer, length.l, user.l)
   ; Internet stream download callback function.
   ; buffer : Buffer containing the downloaded Data... NULL=End of download
@@ -765,7 +784,6 @@
   ; Return : TRUE = Continue recording FALSE = stop 
 ;}
 
-; IDE Options = PureBasic 4.10 (Windows - x86)
-; CursorPosition = 204
-; FirstLine = 83
-; Folding = BAAAAAAiAAg
+; IDE Options = PureBasic 4.20 (Windows - x86)
+; CursorPosition = 785
+; Folding = AAAAAAAAAAA-
