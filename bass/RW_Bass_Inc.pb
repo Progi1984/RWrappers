@@ -1,5 +1,5 @@
 XIncludeFile "RW_Bass_Res.pb"
-ImportC "bass.lib"
+Import "bass.lib"
   BASS_SetConfig(option.l, value.l) As "_BASS_SetConfig@8"
   BASS_GetConfig(option.l) As "_BASS_GetConfig@4"
   BASS_SetConfigPtr(option.l, *value.l) As "_BASS_SetConfigPtr@8"
@@ -107,7 +107,7 @@ ImportC "bass.lib"
   BASS_FXReset(handle.HFX) As "_BASS_FXReset@4"
 EndImport
 
-
 ; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 5
+; CursorPosition = 108
+; FirstLine = 65
 ; Folding = -
