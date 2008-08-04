@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<catalogue>
+    <produit reference="CD0YAH">
+        <intitule>Autocollant Developpez.com</intitule>
+        <prix>0.80</prix>
+    </produit>
+    <produit reference="GSEA6F">
+        <intitule>Stylo Developpez.com</intitule>
+        <prix>2.00</prix>
+    </produit>
+    <produit reference="U0TZ6K">
+        <intitule>Lot de 10 autocollants Developpez.com</intitule>
+        <prix>5.00</prix>
+    </produit>
+    <produit reference="MJIZ8F">
+        <intitule>T-Shirt Developpez.com</intitule>
+        <prix>8.00</prix>
+    </produit>
+    <produit reference="IHRC24">
+        <intitule>Sweat Developpez.com</intitule>
+        <prix>10.00</prix>
+    </produit>
+    <produit reference="ZQEYAN">
+        <intitule>Mug Developpez.com</intitule>
+        <prix>4.00</prix>
+    </produit>
+</catalogue>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:element name="catalogue" type="TypeCatalogue"/>
+    <xs:complexType name="TypeCatalogue">
+        <xs:sequence maxOccurs="unbounded" minOccurs="1">
+            <xs:element name="produit" type="TypeProduit"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TypeProduit">
+        <xs:sequence>
+            <xs:element name="intitule" type="xs:string"/>
+            <xs:element name="prix" type="xs:decimal"/>
+        </xs:sequence>
+        <xs:attribute name="reference" type="xs:string" use="required"/>
+    </xs:complexType>
+</xs:schema>

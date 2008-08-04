@@ -1,0 +1,5 @@
+<!ELEMENT catalogue (produit)+>
+<!ELEMENT produit (intitule,prix)>
+<!ATTLIST produit reference CDATA #REQUIRED>
+<!ELEMENT intitule (#PCDATA)>
+<!ELEMENT prix (#PCDATA)>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <start>
+        <ref name="catalogue"/>
+    </start>
+    <define name="catalogue">
+        <element name="catalogue">
+            <zeroOrMore>
+                <ref name="produit"/>
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="produit">
+        <element name="produit">
+            <attribute name="reference">
+                <text/>
+            </attribute>
+            <interleave>
+                <ref name="intitule"/>
+                <ref name="prix"/>
+            </interleave>
+        </element>
+    </define>
+    <define name="intitule">
+        <element name="intitule">
+            <text/>
+        </element>
+    </define>
+    <define name="prix">
+        <element name="prix">
+            <data type="decimal"/>
+        </element>
+    </define>
+</grammar>

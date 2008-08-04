@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration>
+  <directive nom="verifier_version">Off</directive>
+  <directive nom="demarrage_auto">Off</directive>
+  <directive nom="taille_police">12</directive>
+</configuration>
