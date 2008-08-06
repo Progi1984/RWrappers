@@ -1,0 +1,67 @@
+# Generated with Aspell Dicts "proc" script version 0.50.2
+
+lang = fr
+version = 0.50-3
+
+cwl_files = fr-40-only.cwl fr-60-only.cwl fr-80-only.cwl fr_CH-only.cwl
+data_files = fr.dat fr_phonet.dat
+doc_files = README COPYING Copyright
+extra_files = configure info Makefile.pre
+multi_files = fr.multi fr-40.multi fr-60.multi fr-80.multi fr-lrg.alias fr-med.alias fr-sml.alias fr_CH.multi fr_CH-40.multi fr_CH-60.multi fr_CH-80.multi fr_CH-lrg.alias fr_CH-med.alias fr_CH-sml.alias fr_FR.multi fr_FR-40.multi fr_FR-60.multi fr_FR-80.multi fr_FR-lrg.alias fr_FR-med.alias fr_FR-sml.alias francais.alias francais-40.alias francais-60.alias francais-80.alias francais-lrg.alias francais-med.alias francais-sml.alias french.alias french-40.alias french-60.alias french-80.alias french-lrg.alias french-med.alias french-sml.alias suisse.alias suisse-40.alias suisse-60.alias suisse-80.alias suisse-lrg.alias suisse-med.alias suisse-sml.alias
+rws_files = fr-40-only.rws fr-60-only.rws fr-80-only.rws fr_CH-only.rws
+
+
+distdir=aspell-${lang}-${version}
+
+all: ${rws_files} ${data_files}
+
+install: all
+	mkdir -p ${DESTDIR}${dictdir}/
+	cp ${rws_files} ${multi_files} ${DESTDIR}${dictdir}/
+	cd ${DESTDIR}${dictdir}/ && chmod 644 ${rws_files} ${multi_files}
+	mkdir -p ${DESTDIR}${datadir}/
+	cp ${data_files} ${DESTDIR}${datadir}/
+	cd ${DESTDIR}${datadir}/ && chmod 644 ${data_files}
+
+clean:
+	rm -f ${rws_files}
+
+uninstall:
+	-cd ${DESTDIR}${dictdir}/ && rm ${rws_files} ${multi_files} ${link_files}
+	-cd ${DESTDIR}${datadir}/ && rm ${data_files}
+
+dist:
+	perl proc
+	./configure
+	@make dist-nogen
+
+dist-nogen:
+	-rm -r ${distdir}
+	mkdir ${distdir}
+	cp -p ${extra_files} ${cwl_files} ${multi_files} ${doc_files} ${data_files} ${distdir}/
+	-cp -pr doc/ ${distdir}/
+	gtar cfj ${distdir}.tar.bz2 ${distdir}/
+	rm -r ${distdir}/
+
+distcheck:
+	tar xfj ${distdir}.tar.bz2
+	cd ${distdir} && ./configure && make
+
+rel:
+	mv ${distdir}.tar.bz2 ../rel
+
+
+fr-40-only.rws: fr-40-only.cwl
+
+fr-60-only.rws: fr-60-only.cwl
+
+fr-80-only.rws: fr-80-only.cwl
+
+fr_CH-only.rws: fr_CH-only.cwl
+
+
+.SUFFIXES: .cwl .rws
+
+.cwl.rws:
+	${WORD_LIST_COMPRESS} d < $< | ${ASPELL} ${ASPELL_FLAGS} --lang=fr create master ./$@
+

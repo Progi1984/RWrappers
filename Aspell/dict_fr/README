@@ -1,0 +1,72 @@
+GNU Aspell French Word List Package
+Version 0.50-3
+2002-09-12
+by Kevin Atkinson (kevina@gnu.org)
+Word List by:
+  Rémi Vanicat (vanicat at labri u-bordeaux fr)
+  GUTenberg association
+  Christophe Pythoud (Christophe Pythoud at ling unil ch)
+Copyright Terms: GPL
+see the file Copyright for the exact copyright.
+Source Verson: 0.06
+Source URL: http://perso.wanadoo.fr/remi.vanicat/aspell/
+
+This is the Aspell word list for French.
+
+If Aspell is installed and aspell and word-list-compress are all
+in the path first do a:
+
+  ./configure
+
+Which should output something like:
+
+  Finding Dictionary file location ... /usr/local/lib/aspell
+  Finding Data file location ... /usr/local/share/aspell
+
+if it did not something likely went wrong.
+
+After that build the package with:
+  make
+and then install it with
+  make install
+
+If any of the above mentioned programs are not in your path than the
+variables, ASPELL and/or WORD_LIST_COMPRESS need to be set to the
+commands (with path) to run the utilities.  These variables may be set
+in the environment before configure is run or specified at the command
+line using the following syntax
+  ./configure --vars VAR1=VAL1 ...
+Other useful variables configure recognizes are ASPELL_PARMS, and DESTDIR.
+
+To clean up after the build:
+  make clean
+
+To uninstall the files:
+  make uninstall
+
+After the word lists are installed you can use the main one (fr) by
+setting the LANG environmental variable to fr or running Aspell
+with --lang=fr.  You may also chose the dictionary directly
+with the -d or --master option of Aspell.  You can chose from any of
+the following dictionaries:
+  fr_CH-40 (fr_CH-sml suisse-40 suisse-sml)
+  fr_CH-60 (fr_CH fr_CH-med suisse suisse-60 suisse-med)
+  fr_CH-80 (fr_CH-lrg suisse-80 suisse-lrg)
+  fr_FR-40 (fr-40 fr-sml fr_FR-sml francais-40 francais-sml french-40 
+            french-sml)
+  fr_FR-60 (fr fr-60 fr-med fr_FR fr_FR-med francais francais-60 
+            francais-med french french-60 french-med)
+  fr_FR-80 (fr-80 fr-lrg fr_FR-lrg francais-80 francais-lrg french-80 
+            french-lrg)
+Whereas the names in parentheses are alternate names for the
+dictionary preceding the parentheses.
+
+If you have any problem with installing or using the word lists please
+let me (Kevin Atkinson) know.
+
+If you have problems with the actual word lists please contact one of
+the Word lists authors as I do not maintain the actual Word Lists.
+
+Any additional documentation that came with the original word list can
+be found in the doc/ directory.
+
