@@ -26,7 +26,7 @@ Import "FreeImage.lib"
   CompilerIf #PB_Compiler_Unicode = #False
     FreeImage_Save(fif.l,dib.l,filename.p-ascii,flags.l=0) As "_FreeImage_Save@16" ; dib = *ptr.FIBITMAP ; filename = @ptr.s
   CompilerElse
-    FreeImage_Save(fif.l,dib.l,filename.p-ascii,flags.l=0) As "_FreeImage_SaveU@16" ; dib = *ptr.FIBITMAP ; filename = @ptrUnicode.s
+    FreeImage_Save(fif.l,dib.l,filename.p-unicode,flags.l=0) As "_FreeImage_SaveU@16" ; dib = *ptr.FIBITMAP ; filename = @ptrUnicode.s
   CompilerEndIf
   FreeImage_SaveToHandle(fif.l,dib.l,IO.l,Handle.l,flags.l=0) As "_FreeImage_SaveToHandle@20" ; IO = @ptr.FreeImageIO ; Handle = @ptr.fi_handle
   ; memory i/O stream routines
@@ -56,7 +56,7 @@ Import "FreeImage.lib"
   CompilerIf #PB_Compiler_Unicode = #False
     FreeImage_GetFIFFromFilename(filename.p-ascii) As "_FreeImage_GetFIFFromFilename@4" ; filename = @ptr.s
   CompilerElse
-    FreeImage_GetFIFFromFilename(filename.p-ascii) As "_FreeImage_GetFIFFromFilenameU@4" ; filename = @ptrUnicode.s
+    FreeImage_GetFIFFromFilename(filename.p-unicode) As "_FreeImage_GetFIFFromFilenameU@4" ; filename = @ptrUnicode.s
   CompilerEndIf
   FreeImage_FIFSupportsReading(fif.l) As "_FreeImage_FIFSupportsReading@4"
   FreeImage_FIFSupportsWriting(fif.l) As "_FreeImage_FIFSupportsWriting@4"
@@ -78,7 +78,7 @@ Import "FreeImage.lib"
   CompilerIf #PB_Compiler_Unicode = #False
     FreeImage_GetFileType(filename.p-ascii,Size.l=0) As "_FreeImage_GetFileType@8" ; filename = @ptr.s
   CompilerElse
-    FreeImage_GetFileType(filename.p-ascii,Size.l=0) As "_FreeImage_GetFileTypeU@8" ; filename = @ptrUnicode.s
+    FreeImage_GetFileType(filename.p-unicode,Size.l=0) As "_FreeImage_GetFileTypeU@8" ; filename = @ptrUnicode.s
   CompilerEndIf
   FreeImage_GetFileTypeFromHandle(IO.l,Handle.l,Size.l=0) As "_FreeImage_GetFileTypeFromHandle@12" ; IO = @ptr.FreeImageIO ; Handle = @ptr.fi_handle
   FreeImage_GetFileTypeFromMemory(stream.l,Size.l=0) As "_FreeImage_GetFileTypeFromMemory@8" ; stream = @ptr.FIMEMORY
@@ -255,7 +255,7 @@ Import "FreeImage.lib"
   
   ; Upsampling / downsampling
   FreeImage_Rescale(dib.l,dst_width.l,dst_height.l,filter.l) As "_FreeImage_Rescale@16"; dib = *ptr.FIBITMAP
-  FreeImage_MakeThumbnail(dib.l,max_pixel_size.l,convert.l=#True) As "_FreeImage_MakeThumbnail@12"; dib = *ptr.FIBITMAP
+  FreeImage_MakeThumbnail(dib.l,max_pixel_size.l,convert.l = #True) As "_FreeImage_MakeThumbnail@12"; dib = *ptr.FIBITMAP
   
   ; color manipulation routines (point operations)
   FreeImage_AdjustCurve(dib.l,LUT.l,channel.l) As "_FreeImage_AdjustCurve@12" ; dib = *ptr.FIBITMAP
@@ -307,7 +307,8 @@ ProcedureDLL.s FreeImage_GetFIFRegExpr(fif.l)
   ProcedureReturn PeekS(RWFreeImage_GetFIFRegExpr(fif.l), -1, #PB_Ascii)
 EndProcedure
 
-; IDE Options = PureBasic 4.10 (Windows - x86)
-; CursorPosition = 308
-; Folding = A+
+; IDE Options = PureBasic 4.20 (Windows - x86)
+; CursorPosition = 257
+; FirstLine = 32
+; Folding = B+
 ; EnableUnicode
