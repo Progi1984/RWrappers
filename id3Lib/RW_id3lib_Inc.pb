@@ -1,5 +1,5 @@
 XIncludeFile "RW_id3lib_Res.pb"
-ImportC "ID3lib.lib"
+Import "ID3lib.lib"
   ;- field wrappers
   ID3Field_AddASCII(*field.ID3Field, string.p-ascii) As "_ID3Field_AddASCII@8"
   ID3Field_AddUNICODE(*field.ID3Field, string.p-unicode) As "_ID3Field_AddUNICODE@8"
@@ -60,7 +60,5 @@ ImportC "ID3lib.lib"
   ID3Tag_UpdateByTagType(*tag.ID3Tag, tag_type.l) As "_ID3Tag_UpdateByTagType@8"
 EndImport
 
-; IDE Options = PureBasic 4.10 (Windows - x86)
-; CursorPosition = 15
-; FirstLine = 13
+; IDE Options = PureBasic 4.20 (Windows - x86)
 ; Folding = -
