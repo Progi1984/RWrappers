@@ -1,5 +1,4 @@
 http://www.purebasic.fr/english/viewtopic.php?p=241891&highlight=#241891
-
 http://wiki.videolan.org/LibVLC_Visual_C
 
 http://www.videolan.org/developers/vlc/doc/doxygen/html/group__libvlc__old.html
