@@ -3,13 +3,13 @@
   EndStructure
   Structure AspellKeyInfo
     ; the name of the key
-    name.s
+    name.l  ; STR
     ; the key type
     type.l  ; ENUM AspellKeyInfoType
     ; the Default value of the key
-    def.s
+    def.l  ; STR
     ; a brief description of the key Or null If internal value 
-    desc.s
+    desc.l  ; STR
     flags.l
     other_data.l
   EndStructure
@@ -18,12 +18,12 @@
   Structure AspellConfig
   EndStructure
   Structure AspellError
-    mesg.s
+    mesg.l  ; STR
     *err.AspellErrorInfo
   EndStructure
   Structure AspellErrorInfo
     *isa.AspellErrorInfo
-    mesg.s
+    mesg.l   ; STR
     num_parms.l
     parms.s{3}
   EndStructure
@@ -44,17 +44,17 @@
   Structure AspellStringEnumeration
   EndStructure
   Structure AspellModuleInfo
-    name.s
+    name.l  ; STR
     order_num.d
-    lib_dir.s
+    lib_dir.l  ; STR
     *dict_dirs.AspellStringList
     *dict_exts.AspellStringList
   EndStructure
   Structure AspellDictInfo
     ; name To identify the dictionary by
-    name.s
-    code.s
-    jargon.s
+    name.l  ; STR
+    code.l  ; STR
+    jargon.l  ; STR
     size.l
     size_str.l
     *module.AspellModuleInfo
@@ -72,8 +72,8 @@
   Structure AspellStringMap
   EndStructure
   Structure AspellStringPair
-    first.s
-    second.s
+    first.l  ; STR
+    second.l  ; STR
   EndStructure
   Structure AspellStringPairEnumeration
   EndStructure
@@ -87,7 +87,6 @@
   EndEnumeration  
 ;}
 
-
-; IDE Options = PureBasic 4.10 (Windows - x86)
-; CursorPosition = 89
-; Folding = AAAA9
+; IDE Options = PureBasic 4.30 Beta 4 (Windows - x86)
+; CursorPosition = 88
+; Folding = 9

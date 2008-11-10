@@ -16,17 +16,17 @@ XIncludeFile "RW_Aspell_Inc.pb"
   *dels = aspell_dict_info_list_elements(*dlist)
   *entry = aspell_dict_info_enumeration_next(*dels)
   While *entry <> 0
-    Debug "NAME   "+ *entry\name 
-    Debug "CODE   "+ *entry\code 
-    Debug "JARGON "+ *entry\jargon 
+    Debug "NAME   "+ PeekS(*entry\name,-1,#PB_Ascii)
+    Debug "CODE   "+ PeekS(*entry\code ,-1,#PB_Ascii)
+    Debug "JARGON "+ PeekS(*entry\jargon ,-1,#PB_Ascii)
     Debug "SIZE   "+ Str(*entry\size_str)
-    Debug "MODULE "+*entry\module\name
-    Debug "*-----------------------------*"
+    Debug "MODULE "+PeekS(*entry\module\name,-1,#PB_Ascii)
+    Debug "-----------------------------"
 	  *entry = aspell_dict_info_enumeration_next(*dels)
   Wend
 
   delete_aspell_dict_info_enumeration(*dels)
 
-; IDE Options = PureBasic 4.10 (Windows - x86)
-; CursorPosition = 8
+; IDE Options = PureBasic 4.30 Beta 4 (Windows - x86)
+; CursorPosition = 10
 ; Folding = -
