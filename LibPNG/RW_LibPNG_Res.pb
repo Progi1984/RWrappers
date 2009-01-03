@@ -874,10 +874,13 @@
       row_buf_size.l
     CompilerEndIf
     ; New members added in libpng-1.2.0 
-    CompilerIf Not Defined(PNG_1_0_X, #PB_Constant) And Defined(PNG_ASSEMBLER_CODE_SUPPORTED, #PB_Constant)
-      mmx_bitdepth_threshold.b
-      mmx_rowbytes_threshold.l
-      asm_flags.l
+    CompilerIf Defined(PNG_1_0_X, #PB_Constant)
+    CompilerElse
+      CompilerIf Defined(PNG_ASSEMBLER_CODE_SUPPORTED, #PB_Constant)
+        mmx_bitdepth_threshold.b
+        mmx_rowbytes_threshold.l
+        asm_flags.l
+      CompilerEndIf
     CompilerEndIf
     ; New members added in libpng-1.0.2 but first enabled by Default in 1.2.0 
     CompilerIf Defined(PNG_USER_MEM_SUPPORTED, #PB_Constant)
