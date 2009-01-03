@@ -6,35 +6,39 @@
     ; ideal-delta..ideal+delta.  Each argument is evaluated twice.
     ; "ideal" And "delta" should be constants, normally simple
     ; integers, "value" a variable. Added To libpng-1.2.6 JB 
-  Macro PNG_OUT_OF_RANGE(value, ideal, delta)
-    (value<ideal-delta||value >ideal+delta)
-  EndMacro
+  Procedure PNG_OUT_OF_RANGE(value, ideal, delta)
+     If (value<(ideal-delta)) Or (value>(ideal + delta))
+        ProcedureReturn #True
+     Else
+       ProcedureReturn #False
+     EndIf
+  EndProcedure 
 ;}
 ;{ Dims }
   ; Constant strings For known chunk types.  If you need To add a chunk,
     ; Define the name here, And add an invocation of the Macro in png.c And
     ; wherever it's needed.
-  Global Dim png_IHDR(5): png_IHDR(0) =  73: png_IHDR(1) = 72: png_IHDR(2) = 68: png_IHDR(3) =  82: png_IHDR(4) = '\0':
-  Global Dim png_IDAT(5): png_IDAT(0) =  73: png_IDAT(1) = 68: png_IDAT(2) = 65: png_IDAT(3) =  84: png_IDAT(4) = '\0':
-  Global Dim png_IEND(5): png_IEND(0) =  73: png_IEND(1) = 69: png_IEND(2) = 78: png_IEND(3) =  68: png_IEND(4) = '\0':
-  Global Dim png_PLTE(5): png_PLTE(0) =  80: png_PLTE(1) = 76: png_PLTE(2) = 84: png_PLTE(3) =  69: png_PLTE(4) = '\0':
-  Global Dim png_bKGD(5): png_bKGD(0) =  98: png_bKGD(1) = 75: png_bKGD(2) = 71: png_bKGD(3) =  68: png_bKGD(4) = '\0':
-  Global Dim png_cHRM(5): png_cHRM(0) =  99: png_cHRM(1) = 72: png_cHRM(2) = 82: png_cHRM(3) =  77: png_cHRM(4) = '\0':
-  Global Dim png_gAMA(5): png_gAMA(0) = 103: png_gAMA(1) = 65: png_gAMA(2) = 77: png_gAMA(3) =  65: png_gAMA(4) = '\0':
-  Global Dim png_hIST(5): png_hIST(0) = 104: png_hIST(1) = 73: png_hIST(2) = 83: png_hIST(3) =  84: png_hIST(4) = '\0':
-  Global Dim png_iCCP(5): png_iCCP(0) = 105: png_iCCP(1) = 67: png_iCCP(2) = 67: png_iCCP(3) =  80: png_iCCP(4) = '\0':
-  Global Dim png_iTXt(5): png_iTXt(0) = 105: png_iTXt(1) = 84: png_iTXt(2) = 88: png_iTXt(3) = 116: png_iTXt(4) = '\0':
-  Global Dim png_oFFs(5): png_oFFs(0) = 111: png_oFFs(1) = 70: png_oFFs(2) = 70: png_oFFs(3) = 115: png_oFFs(4) = '\0':
-  Global Dim png_pCAL(5): png_pCAL(0) = 112: png_pCAL(1) = 67: png_pCAL(2) = 65: png_pCAL(3) =  76: png_pCAL(4) = '\0':
-  Global Dim png_sCAL(5): png_sCAL(0) = 115: png_sCAL(1) = 67: png_sCAL(2) = 65: png_sCAL(3) =  76: png_sCAL(4) = '\0':
-  Global Dim png_pHYs(5): png_pHYs(0) = 112: png_pHYs(1) = 72: png_pHYs(2) = 89: png_pHYs(3) = 115: png_pHYs(4) = '\0':
-  Global Dim png_sBIT(5): png_sBIT(0) = 115: png_sBIT(1) = 66: png_sBIT(2) = 73: png_sBIT(3) =  84: png_sBIT(4) = '\0':
-  Global Dim png_sPLT(5): png_sPLT(0) = 115: png_sPLT(1) = 80: png_sPLT(2) = 76: png_sPLT(3) =  84: png_sPLT(4) = '\0':
-  Global Dim png_sRGB(5): png_sRGB(0) = 115: png_sRGB(1) = 82: png_sRGB(2) = 71: png_sRGB(3) =  66: png_sRGB(4) = '\0':
-  Global Dim png_tEXt(5): png_tEXt(0) = 116: png_tEXt(1) = 69: png_tEXt(2) = 88: png_tEXt(3) = 116: png_tEXt(4) = '\0':
-  Global Dim png_tIME(5): png_tIME(0) = 116: png_tIME(1) = 73: png_tIME(2) = 77: png_tIME(3) =  69: png_tIME(4) = '\0':
-  Global Dim png_tRNS(5): png_tRNS(0) = 116: png_tRNS(1) = 82: png_tRNS(2) = 78: png_tRNS(3) =  83: png_tRNS(4) = '\0':
-  Global Dim png_zTXt(5): png_zTXt(0) = 122: png_zTXt(1) = 84: png_zTXt(2) = 88: png_zTXt(3) = 116: png_zTXt(4) = '\0':
+  Global Dim png_IHDR.c(4) : png_IHDR(0) = 'I' : png_IHDR(1) = 'H' : png_IHDR(2) = 'D' : png_IHDR(3) = 'R' : png_IHDR(4) = 0
+  Global Dim png_IDAT.c(4) : png_IDAT(0) = 'I' : png_IDAT(1) = 'D' : png_IDAT(2) = 'A' : png_IDAT(3) = 'T' : png_IDAT(4) = 0
+  Global Dim png_IEND.c(4) : png_IEND(0) = 'I' : png_IEND(1) = 'E' : png_IEND(2) = 'N' : png_IEND(3) = 'D' : png_IEND(4) = 0
+  Global Dim png_PLTE.c(4) : png_PLTE(0) = 'P' : png_PLTE(1) = 'L' : png_PLTE(2) = 'T' : png_PLTE(3) = 'E' : png_PLTE(4) = 0 
+  Global Dim png_bKGD.c(4) : png_bKGD(0) = 'b' : png_bKGD(1) = 'K' : png_bKGD(2) = 'G' : png_bKGD(3) = 'D' : png_bKGD(4) = 0
+  Global Dim png_cHRM.c(4) : png_cHRM(0) = 'c' : png_cHRM(1) = 'H' : png_cHRM(2) = 'R' : png_cHRM(3) = 'M' : png_cHRM(4) = 0
+  Global Dim png_gAMA.c(4) : png_gAMA(0) = 'g' : png_gAMA(1) = 'A' : png_gAMA(2) = 'M' : png_gAMA(3) = 'A' : png_gAMA(4) = 0
+  Global Dim png_hIST.c(4) : png_hIST(0) = 'h' : png_hIST(1) = 'I' : png_hIST(2) = 'S' : png_hIST(3) = 'T' : png_hIST(4) = 0 
+  Global Dim png_iCCP.c(4) : png_iCCP(0) = 'i' : png_iCCP(1) = 'C' : png_iCCP(2) = 'C' : png_iCCP(3) = 'P' : png_iCCP(4) = 0 
+  Global Dim png_iTXt.c(4) : png_iTXt(0) = 'i' : png_iTXt(1) = 'T' : png_iTXt(2) = 'X' : png_iTXt(3) = 't' : png_iTXt(4) = 0 
+  Global Dim png_oFFs.c(4) : png_oFFs(0) = 'o' : png_oFFs(1) = 'F' : png_oFFs(2) = 'F' : png_oFFs(3) = 's' : png_oFFs(4) = 0 
+  Global Dim png_pCAL.c(4) : png_pCAL(0) = 'p' : png_pCAL(1) = 'C' : png_pCAL(2) = 'A' : png_pCAL(3) = 'L' : png_pCAL(4) = 0 
+  Global Dim png_sCAL.c(4) : png_sCAL(0) = 's' : png_sCAL(1) = 'C' : png_sCAL(2) = 'A' : png_sCAL(3) = 'L' : png_sCAL(4) = 0
+  Global Dim png_pHYs.c(4) : png_pHYs(0) = 'p' : png_pHYs(1) = 'H' : png_pHYs(2) = 'Y' : png_pHYs(3) = 's' : png_pHYs(4) = 0 
+  Global Dim png_sBIT.c(4) : png_sBIT(0) = 's' : png_sBIT(1) = 'B' : png_sBIT(2) = 'I' : png_sBIT(3) = 'T' : png_sBIT(4) = 0 
+  Global Dim png_sPLT.c(4) : png_sPLT(0) = 's' : png_sPLT(1) = 'P' : png_sPLT(2) = 'L' : png_sPLT(3) = 'T' : png_sPLT(4) = 0 
+  Global Dim png_sRGB.c(4) : png_sRGB(0) = 's' : png_sRGB(1) = 'R' : png_sRGB(2) = 'G' : png_sRGB(3) = 'B' : png_sRGB(4) = 0 
+  Global Dim png_tEXt.c(4) : png_tEXt(0) = 't' : png_tEXt(1) = 'E' : png_tEXt(2) = 'X' : png_tEXt(3) = 't' : png_tEXt(4) = 0 
+  Global Dim png_tIME.c(4) : png_tIME(0) = 't' : png_tIME(1) = 'I' : png_tIME(2) = 'M' : png_tIME(3) = 'E' : png_tIME(4) = 0 
+  Global Dim png_tRNS.c(4) : png_tRNS(0) = 't' : png_tRNS(1) = 'R' : png_tRNS(2) = 'N' : png_tRNS(3) = 'S' : png_tRNS(4) = 0 
+  Global Dim png_zTXt.c(4) : png_zTXt(0) = 'z' : png_zTXt(1) = 'T' : png_zTXt(2) = 'X' : png_zTXt(3) = 't' : png_zTXt(4) = 0  
 ;}
 ;{ Constantes }
   ; Version information For png.h - this should match the version in png.c 
@@ -670,18 +674,28 @@
     ; It should Not be accessed directly by an application, except To store
     ; the jmp_buf.
   Structure png_struct_def
-    jmpbuf.l                          ; used in png_error 
-    *error_fn                         ; function for printing errors and aborting 
+    CompilerIf Defined(PNG_SETJMP_SUPPORTED, #PB_Constant)
+      jmpbuf.l                          ; used in png_error 
+    CompilerEndIf
+    *error_fn                         ; function for printing errors OR aborting 
     *warning_fn                       ; function for printing warnings 
     error_ptr.l                       ; user supplied struct for error functions 
     *write_data_fn                    ; function for writing output data 
     *read_data_fn                     ; function for reading input data 
     io_ptr.l                          ; ptr to application struct for I/O functions 
-    *read_user_transform_fn           ; user read transform 
-    *write_user_transform_fn          ; user write transform 
-    user_transform_ptr.l              ; user supplied struct For user transform 
-    user_transform_depth.b;           ; bit depth of user transformed pixels 
-    user_transform_channels.b         ; channels in user transformed pixels 
+    CompilerIf Defined(PNG_READ_USER_TRANSFORM_SUPPORTED, #PB_Constant)
+      *read_user_transform_fn           ; user read transform 
+    CompilerEndIf
+    CompilerIf Defined(PNG_WRITE_USER_TRANSFORM_SUPPORTED, #PB_Constant)
+      *write_user_transform_fn          ; user write transform 
+    CompilerEndIf
+    CompilerIf Defined(PNG_USER_TRANSFORM_PTR_SUPPORTED, #PB_Constant)
+      CompilerIf Defined(PNG_READ_USER_TRANSFORM_SUPPORTED, #PB_Constant) Or Defined(PNG_WRITE_USER_TRANSFORM_SUPPORTED, #PB_Constant)
+        user_transform_ptr.l              ; user supplied struct For user transform 
+        user_transform_depth.b;           ; bit depth of user transformed pixels 
+        user_transform_channels.b         ; channels in user transformed pixels 
+      CompilerEndIf
+    CompilerEndIf
     mode.l                            ; tells us where we are in the PNG file 
     flags.l                           ; flags indicating various things to libpng 
     transformations.l                 ; which transformations to perform 
@@ -726,102 +740,161 @@
     channels.b;                       ; number of channels in file 
     usr_channels.b;                   ; channels at start of write 
     sig_bytes.b;                      ; magic bytes read/written from start of file 
-    fillerB.b;                        ; filler byte for pixel expansion 
-    fillerW.w                         ; filler bytes for pixel expansion 
-    background_gamma_type.b
-    background_gamma.f
-    background.png_color_16           ; background color in screen gamma space 
-    background_1.png_color_16         ; background normalized to gamma 1.0 
-    *output_flush_fn                  ; Function for flushing output 
-    flush_dist.l                      ; how many rows apart to flush, 0 - no flush 
-    flush_rows.l                      ; number of rows written since last flush 
-    gamma_shift.l                     ; number of "insignificant" bits 16-bit gamma 
-    gamma.f                           ; file gamma value 
-    screen_gamma.f                    ; screen gamma value (display_exponent) 
-    gamma_table.b                     ; gamma table for 8-bit depth files 
-    gamma_from_1.b                    ; converts from 1.0 to screen 
-    gamma_to_1.b                      ; converts from file to 1.0 
-    gamma_16_table.w                  ; gamma table for 16-bit depth files 
-    gamma_16_from_1.w                 ; converts from 1.0 to screen 
-    gamma_16_to_1.w                   ; converts from file to 1.0 
-    sig_bit.png_color_8;              ; significant bits in each available channel 
-    shift.png_color_8;                ; shift for significant bit tranformation 
-    trans.b;                          ; transparency values for paletted files 
-    trans_values.png_color_16         ; transparency values for non-paletted files 
+    CompilerIf Defined(PNG_READ_FILLER_SUPPORTED, #PB_Constant) Or Defined(PNG_WRITE_FILLER_SUPPORTED, #PB_Constant)
+      CompilerIf Defined(PNG_LEGACY_SUPPORTED, #PB_Constant)
+        fillerB.b;                        ; filler byte for pixel expansion 
+      CompilerElse
+        fillerW.w                         ; filler bytes for pixel expansion 
+      CompilerEndIf
+    CompilerEndIf
+    CompilerIf Defined(PNG_bKGD_SUPPORTED, #PB_Constant)
+      background_gamma_type.b
+      CompilerIf Defined(PNG_FLOATING_POINT_SUPPORTED, #PB_Constant)
+        background_gamma.f
+      CompilerEndIf
+      background.png_color_16           ; background color in screen gamma space 
+      CompilerIf Defined(PNG_READ_GAMMA_SUPPORTED, #PB_Constant)
+        background_1.png_color_16         ; background normalized to gamma 1.0 
+      CompilerEndIf
+    CompilerEndIf
+    CompilerIf Defined(PNG_WRITE_FLUSH_SUPPORTED, #PB_Constant)
+      *output_flush_fn                  ; Function for flushing output 
+      flush_dist.l                      ; how many rows apart to flush, 0 - no flush 
+      flush_rows.l                      ; number of rows written since last flush 
+    CompilerEndIf
+    CompilerIf Defined(PNG_READ_GAMMA_SUPPORTED, #PB_Constant) Or Defined(PNG_READ_BACKGROUND_SUPPORTED, #PB_Constant)
+      gamma_shift.l                     ; number of "insignificant" bits 16-bit gamma 
+      CompilerIf Defined(PNG_FLOATING_POINT_SUPPORTED, #PB_Constant)
+        gamma.f                           ; file gamma value 
+        screen_gamma.f                    ; screen gamma value (display_exponent) 
+      CompilerEndIf
+    CompilerEndIf
+    CompilerIf Defined(PNG_READ_GAMMA_SUPPORTED, #PB_Constant) Or Defined(PNG_READ_BACKGROUND_SUPPORTED, #PB_Constant)
+      gamma_table.b                     ; gamma table for 8-bit depth files 
+      gamma_from_1.b                    ; converts from 1.0 to screen 
+      gamma_to_1.b                      ; converts from file to 1.0 
+      gamma_16_table.w                  ; gamma table for 16-bit depth files 
+      gamma_16_from_1.w                 ; converts from 1.0 to screen 
+      gamma_16_to_1.w                   ; converts from file to 1.0 
+    CompilerEndIf
+    CompilerIf Defined(PNG_READ_GAMMA_SUPPORTED, #PB_Constant) Or Defined(PNG_sBIT_SUPPORTED, #PB_Constant)
+      sig_bit.png_color_8;              ; significant bits in each available channel 
+    CompilerEndIf
+    CompilerIf Defined(PNG_READ_SHIFT_SUPPORTED, #PB_Constant) Or Defined(PNG_WRITE_SHIFT_SUPPORTED, #PB_Constant)
+      shift.png_color_8;                ; shift for significant bit tranformation 
+    CompilerEndIf
+    CompilerIf Defined(PNG_tRNS_SUPPORTED, #PB_Constant) Or Defined(PNG_READ_BACKGROUND_SUPPORTED, #PB_Constant) Or Defined(PNG_READ_EXPOR_SUPPORTED, #PB_Constant) Or Defined(PNG_READ_BACKGROUND_SUPPORTED, #PB_Constant)
+      trans.b;                          ; transparency values for paletted files 
+      trans_values.png_color_16         ; transparency values for non-paletted files 
+    CompilerEndIf
     *read_row_fn                      ; called after each row is decoded 
     *write_row_fn                     ; called after each row is encoded 
-    *info_fn                          ; called after header data fully read 
-    *row_fn                           ; called after each prog. row is decoded 
-    *end_fn                           ; called after image is complete 
-    save_buffer_ptr.b                 ; current location in save_buffer 
-    save_buffer.b;                    ; buffer for previously read data 
-    current_buffer_ptr.b;             ; current location in current_buffer 
-    current_buffer.b;                 ; buffer for recently used data 
-    push_length.l                     ; size of current input chunk 
-    skip_length.l                     ; bytes to skip in input data 
-    save_buffer_size.l                ; amount of data now in save_buffer 
-    save_buffer_max.l                 ; total size of save_buffer 
-    buffer_size.l                     ; total amount of available input data 
-    current_buffer_size.l             ; amount of data now in current_buffer 
-    process_mode.l                    ; what push library is currently doing 
-    cur_palette.l                     ; current push library palette index 
-    current_text_size.l               ; current size of text input data 
-    current_text_left.l               ; how much text left to read in input 
-    current_text.s                    ; current text chunk buffer 
-    current_text_ptr.s                ; current location in current_text 
-    ; For the Borland special 64K segment handler 
+    CompilerIf Defined(PNG_PROGRESSIVE_READ_SUPPORTED, #PB_Constant)
+      *info_fn                          ; called after header data fully read 
+      *row_fn                           ; called after each prog. row is decoded 
+      *end_fn                           ; called after image is complete 
+      save_buffer_ptr.b                 ; current location in save_buffer 
+      save_buffer.b;                    ; buffer for previously read data 
+      current_buffer_ptr.b;             ; current location in current_buffer 
+      current_buffer.b;                 ; buffer for recently used data 
+      push_length.l                     ; size of current input chunk 
+      skip_length.l                     ; bytes to skip in input data 
+      save_buffer_size.l                ; amount of data now in save_buffer 
+      save_buffer_max.l                 ; total size of save_buffer 
+      buffer_size.l                     ; total amount of available input data 
+      current_buffer_size.l             ; amount of data now in current_buffer 
+      process_mode.l                    ; what push library is currently doing 
+      cur_palette.l                     ; current push library palette index 
+      CompilerIf Defined(PNG_TEXT_SUPPORTED, #PB_Constant)
+        current_text_size.l               ; current size of text input data 
+        current_text_left.l               ; how much text left to read in input 
+        current_text.s                    ; current text chunk buffer 
+        current_text_ptr.s                ; current location in current_text 
+      CompilerEndIf
+    CompilerEndIf
+    ; For the BorlOR special 64K segment hORler 
     offset_table_ptr.b
     offset_table.b
     offset_table_number.w
     offset_table_count.w
     offset_table_count_free.w
-    palette_lookup.b                  ; lookup table for dithering 
-    dither_index.b                    ; index translation for palette files 
-    hist.w                            ; histogram 
-    heuristic_method.b                ; heuristic for row filter selection 
-    num_prev_filters.b                ; number of weights for previous rows 
-    prev_filters.b                    ; filter type(s) of previous row(s) 
-    filter_weights.w                  ; weight(s) for previous line(s) 
-    inv_filter_weights.w              ; 1/weight(s) for previous line(s) 
-    filter_costs.w                    ; relative filter calculation cost 
-    inv_filter_costs.w                ; 1/relative filter calculation cost 
-    time_buffer.s                     ; String to hold RFC 1123 time text 
+    CompilerIf Defined(PNG_READ_DITHER_SUPPORTED, #PB_Constant)
+      palette_lookup.b                  ; lookup table for dithering 
+      dither_index.b                    ; index translation for palette files 
+    CompilerEndIf
+    CompilerIf Defined(PNG_READ_DITHER_SUPPORTED, #PB_Constant) Or Defined(PNG_hIST_SUPPORTE, #PB_Constant)
+      hist.w                            ; histogram 
+    CompilerEndIf
+    CompilerIf Defined(PNG_WRITE_WEIGHTED_FILTER_SUPPORTED, #PB_Constant)
+      heuristic_method.b                ; heuristic for row filter selection 
+      num_prev_filters.b                ; number of weights for previous rows 
+      prev_filters.b                    ; filter type(s) of previous row(s) 
+      filter_weights.w                  ; weight(s) for previous line(s) 
+      inv_filter_weights.w              ; 1/weight(s) for previous line(s) 
+      filter_costs.w                    ; relative filter calculation cost 
+      inv_filter_costs.w                ; 1/relative filter calculation cost 
+    CompilerEndIf
+    CompilerIf Defined(PNG_TIME_RFC1123_SUPPORTED, #PB_Constant)
+      time_buffer.s                     ; String to hold RFC 1123 time text 
+    CompilerEndIf
     ; New members added in libpng-1.0.6 
-    free_me.l                         ; flags items libpng is responsible for freeing 
-    user_chunk_ptr.l
-    *read_user_chunk_fn               ; user read chunk handler 
-    num_chunk_list.l
-    chunk_list.b
+    CompilerIf Defined(PNG_FREE_ME_SUPPORTED, #PB_Constant)
+      free_me.l                         ; flags items libpng is responsible for freeing 
+    CompilerEndIf
+    CompilerIf Defined(PNG_USER_CHUNKS_SUPPORTED, #PB_Constant)
+      user_chunk_ptr.l
+      *read_user_chunk_fn               ; user read chunk hORler 
+    CompilerEndIf
+    CompilerIf Defined(PNG_UNKNOWN_CHUNKS_SUPPORTED, #PB_Constant)
+      num_chunk_list.l
+      chunk_list.b
+    CompilerEndIf
     ; New members added in libpng-1.0.3 
-    rgb_to_gray_status.c
-    ; These were changed from png_byte in libpng-1.0.6 
-    rgb_to_gray_red_coeff.w
-    rgb_to_gray_green_coeff.w
-    rgb_to_gray_blue_coeff.w
+    CompilerIf Defined(PNG_READ_RGB_TO_GRAY_SUPPORTED, #PB_Constant)
+      rgb_to_gray_status.c
+      ; These were changed from png_byte in libpng-1.0.6 
+      rgb_to_gray_red_coeff.w
+      rgb_to_gray_green_coeff.w
+      rgb_to_gray_blue_coeff.w
+    CompilerEndIf
     ; New member added in libpng-1.0.4 (renamed in 1.0.9) 
-    mng_features_permitted.l
+    CompilerIf Defined(PNG_MNG_FEATURES_SUPPORTED, #PB_Constant) Or Defined(PNG_READ_EMPTY_PLTE_SUPPORTED, #PB_Constant) Or Defined(PNG_WRITE_EMPTY_PLTE_SUPPORTED, #PB_Constant) 
+      mng_features_permitted.l
+    CompilerEndIf
     ; New member added in libpng-1.0.7 
-    int_gamma.l
+    CompilerIf Defined(PNG_READ_GAMMA_SUPPORTED, #PB_Constant) Or Defined(PNG_READ_BACKGROUND_SUPPORTED, #PB_Constant)
+      int_gamma.l
+    CompilerEndIf
     ; New member added in libpng-1.0.9, ifdef'ed out in 1.0.12, enabled in 1.2.0 
-    filter_type.b
+    CompilerIf Defined(PNG_MNG_FEATURES_SUPPORTED, #PB_Constant)
+      filter_type.b
+    CompilerEndIf
     ; New member added in libpng-1.0.10, ifdef'ed out in 1.2.0 
-    row_buf_size.l
+    CompilerIf Defined(PNG_1_0_X, #PB_Constant) Or (Defined(PNG_DEBUG, #PB_Constant) And Defined(PNG_USE_PNGGCCRD, #PB_Constant))
+      row_buf_size.l
+    CompilerEndIf
     ; New members added in libpng-1.2.0 
-    mmx_bitdepth_threshold.b
-    mmx_rowbytes_threshold.l
-    asm_flags.l
+    CompilerIf Not Defined(PNG_1_0_X, #PB_Constant) And Defined(PNG_ASSEMBLER_CODE_SUPPORTED, #PB_Constant)
+      mmx_bitdepth_threshold.b
+      mmx_rowbytes_threshold.l
+      asm_flags.l
+    CompilerEndIf
     ; New members added in libpng-1.0.2 but first enabled by Default in 1.2.0 
-    mem_ptr.l                         ; user supplied struct for mem functions 
-    *malloc_fn                        ; function for allocating memory 
-    *free_fn                          ; function for freeing memory 
+    CompilerIf Defined(PNG_USER_MEM_SUPPORTED, #PB_Constant)
+      mem_ptr.l                         ; user supplied struct for mem functions 
+      *malloc_fn                        ; function for allocating memory 
+      *free_fn                          ; function for freeing memory 
+    CompilerEndIf
     ; New member added in libpng-1.0.13 And 1.2.0 
     big_row_buf.b                     ; buffer to save current (unfiltered) row 
     ; The following three members were added at version 1.0.14 And 1.2.4 
-    dither_sort.b                     ; working sort array 
-    index_to_palette.b                ; where the original index currently is 
-    ; in the palette 
-    palette_to_index.b                ; which original index points to this 
-    ; palette color 
+    CompilerIf Defined(PNG_READ_DITHER_SUPPORTED, #PB_Constant)
+      dither_sort.b                     ; working sort array 
+      index_to_palette.b                ; where the original index currently is 
+      ; in the palette 
+      palette_to_index.b                ; which original index points to this 
+      ; palette color 
+    CompilerEndIf
       ; New members added in libpng-1.0.16 And 1.2.6 
     compression_type.b
     user_width_max.l
@@ -831,7 +904,3 @@
     unknown_chunk.png_unknown_chunk
   EndStructure
 ;}
-
-; IDE Options = PureBasic 4.10 (Windows - x86)
-; CursorPosition = 833
-; Folding = A--
