@@ -33,6 +33,7 @@ EnableExplicit
 
   Debug "BASS CPU usage >"+Str(BASS_GetCPU())
   Debug "BASS Volume >"+Str(BASS_GetVolume())
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 29
+; IDE Options = PureBasic 4.30 Beta 4 (Windows - x86)
+; CursorPosition = 18
 ; Folding = -
+; EnableUnicode
