@@ -51,7 +51,7 @@ Enumeration 0
   #CURLE_UNKNOWN_TELNET_OPTION   ; 48 - User specified an unknown option 
   #CURLE_TELNET_OPTION_SYNTAX    ; 49 - Malformed telnet option 
   #CURLE_OBSOLETE                ; 50 - Not USED 
-  #CURLE_SSL_PEER_CERTIFICATE    ; 51 - peer's certificate wasn't ok 
+  #CURLE_PEER_FAILED_VERIFICATION; 51 - peer's certificate wasn't ok 
   #CURLE_GOT_NOTHING             ; 52 - when this is a specific error 
   #CURLE_SSL_ENGINE_NOTFOUND     ; 53 - SSL crypto engine Not found 
   #CURLE_SSL_ENGINE_SETFAILED    ; 54 - can Not set SSL crypto engine As Default 
@@ -75,7 +75,16 @@ Enumeration 0
   #CURLE_TFTP_UNKNOWNID          ; 72 - Unknown transfer ID 
   #CURLE_TFTP_EXISTS             ; 73 - File already exists 
   #CURLE_TFTP_NOSUCHUSER         ; 74 - No such user 
-  #CURL_LAST                     ; never use! 
+  #CURLE_CONV_FAILED             ; 75 - conversion failed
+  #CURLE_CONV_REQD               ; 76 - caller must register conversion callbacks using curl_easy_setopt options CURLOPT_CONV_FROM_NETWORK_FUNCTION, CURLOPT_CONV_TO_NETWORK_FUNCTION, And CURLOPT_CONV_FROM_UTF8_FUNCTION
+  #CURLE_SSL_CACERT_BADFILE      ; 77 - could Not load CACERT file, missing Or wrong format
+  #CURLE_REMOTE_FILE_NOT_FOUND   ; 78 - remote file Not found
+  #CURLE_SSH                     ; 79 - error from the SSH layer, somewhat generic so the error message will be of interest when this has happened 
+  #CURLE_SSL_SHUTDOWN_FAILED     ; 80 - Failed To shut down the SSL connection
+  #CURLE_AGAIN                   ; 81 - socket is Not ready For send/recv, wait till it's ready and try again (Added in 7.18.2)
+  #CURLE_SSL_CRL_BADFILE         ; 82 - could Not load CRL file, missing Or wrong format (Added in 7.19.0)
+  #CURLE_SSL_ISSUER_ERROR        ; 83 - Issuer check failed.  (Added in 7.19.0) 
+  #CURL_LAST                     ;  never use!
 EndEnumeration
 Enumeration 0 ; curlsocktype
   #CURLSOCKTYPE_IPCXN  ; socket created For a specific IP connection 
@@ -362,7 +371,11 @@ EndEnumeration
   #CURLINFO_COOKIELIST                = #CURLINFO_SLIST  + 28
   #CURLINFO_LASTSOCKET                = #CURLINFO_LONG   + 29
   #CURLINFO_FTP_ENTRY_PATH            = #CURLINFO_STRING + 30
-  #CURLINFO_LASTONE                   = 30
+  #CURLINFO_REDIRECT_URL              = #CURLINFO_STRING + 31
+  #CURLINFO_PRIMARY_IP                = #CURLINFO_STRING + 32
+  #CURLINFO_APPCONNECT_TIME           = #CURLINFO_DOUBLE + 33
+  #CURLINFO_CERTINFO                  = #CURLINFO_SLIST  + 34
+  #CURLINFO_LASTONE                   = 34
   #CURLINFO_HTTP_CODE                 = #CURLINFO_RESPONSE_CODE
 ;}
 ;{ #CURLOPT
@@ -762,6 +775,10 @@ EndEnumeration
                              ; do Not free in formfree 
 #HTTPPOST_BUFFER      = 1<<4 ; upload file from buffer 
 #HTTPPOST_PTRBUFFER   = 1<<5 ; upload file from pointer contents 
+#HTTPPOST_CALLBACK    = 1<<6 ; upload file contents by using the
+                             ; regular Read callback To get the Data
+                             ; And pass the given pointer As custom
+                             ; pointer
 ;}
 
 ; #CURLE_OBSOLETE                     = #CURLE_OBSOLETE50	; noone should be using this! 
@@ -888,6 +905,7 @@ EndEnumeration
     *showfilename       ; The file name to show. If not set, the
                         ;   actual file name will be used (If this
                         ;   is a file part) 
+    *userp              ; custom pointer used for HTTPPOST_CALLBACK posts
   EndStructure
   ; Structure To be used As parameter For CURLFORM_ARRAY 
   Structure Curl_Forms
@@ -921,7 +939,3 @@ EndEnumeration
     *libssh_version.s   ; human readable string 
   EndStructure
 ;}
-
-; IDE Options = PureBasic 4.10 (Windows - x86)
-; CursorPosition = 276
-; Folding = AAAAA-

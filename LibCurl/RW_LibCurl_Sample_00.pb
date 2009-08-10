@@ -11,6 +11,11 @@ XIncludeFile "RW_LibCurl_Inc.pb"
 curl  = curl_easy_init()
 fp  = CreateFile(#PB_Any, "Samples"+#LibCurl_SeparatorDir+"Sample_0_LibCurl.htm")
 If curl
+  ; Using with a proxy
+  ; Debug curl_easy_setopt(curl, #CURLOPT_HTTPPROXYTUNNEL, #True)
+  ; Debug curl_easy_setopt(curl, #CURLOPT_PROXY, @"proxy_ip:proxy_port")
+  ; Debug curl_easy_setopt(curl, #CURLOPT_PROXYUSERPWD, @"proxy_login:proxy_password"); 
+
   Debug curl_easy_setopt(curl, #CURLOPT_URL, @"curl.haxx.se")
   Debug curl_easy_setopt(curl, #CURLOPT_WRITEFUNCTION, @RW_LibCurl_WriteFunction())
   
