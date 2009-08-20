@@ -75,7 +75,21 @@ ImportC #LibCurl_ImportLib
   curl_version_info(type.l) As SymbolName(curl_version_info)
 EndImport;}
 
-ProcedureC  RW_LibCurl_WriteFunction(*ptr, Size, NMemB, *Stream)
+
+Procedure RW_LibCurl_InitString()
+  Shared ReceivedData.s
+  If ReceivedData > ""
+    ReceivedData = ""
+  EndIf
+EndProcedure
+Procedure RW_LibCurl_InitData()
+  Shared *LibCurl_SharedMem
+  If *LibCurl_SharedMem > 0
+    FreeMemory(*LibCurl_SharedMem)
+    *LibCurl_SharedMem = 0
+  EndIf
+EndProcedure
+ProcedureC  RW_LibCurl_WriteStrFunction(*ptr, Size, NMemB, *Stream)
   ;retreives utf-8/ascii encoded data
   Protected SizeProper.l  = Size & 255
   Protected NMemBProper.l = NMemB
@@ -89,7 +103,47 @@ ProcedureC  RW_LibCurl_WriteFunction(*ptr, Size, NMemB, *Stream)
   ;Debug "@ " + Str(Len(ReceivedData))
   ProcedureReturn SizeProper * NMemBProper
 EndProcedure
-Procedure.s RW_LibCurl_GetData()
+Procedure.s RW_LibCurl_GetString()
   Shared ReceivedData.s
   ProcedureReturn ReceivedData
+EndProcedure
+ProcedureC  RW_LibCurl_WriteDataFunction(*ptr, Size, NMemB, *Stream)
+  Protected plSize.l  = Size & 255
+  Protected plNmemB.l = NMemB
+  Protected plMemorySize.l = plSize * plNmemB
+  Protected plLibCurl_SharedMemSize.l
+  
+  Protected *LibCurl_TempMemory
+  Protected *LibCurl_TempSharedMem
+  
+  Shared *LibCurl_SharedMem
+
+  ; allocates memory for receiving data
+  *LibCurl_TempMemory = AllocateMemory(plMemorySize)
+  CopyMemory(*ptr, *LibCurl_TempMemory, plMemorySize)
+  
+  ; if memory doesn't exists
+  If *LibCurl_SharedMem = 0
+    *LibCurl_SharedMem = AllocateMemory(plMemorySize)
+    CopyMemory(*LibCurl_TempMemory, *LibCurl_SharedMem, plMemorySize)
+  Else
+    ; we allocate a temporary memory zone for storing previous *LibCurl_SharedMem
+    plLibCurl_SharedMemSize  = MemorySize(*LibCurl_SharedMem)
+    *LibCurl_TempSharedMem = AllocateMemory(plLibCurl_SharedMemSize)
+    CopyMemory(*LibCurl_SharedMem, *LibCurl_TempSharedMem, plLibCurl_SharedMemSize)
+    ; we free *LibCurl_SharedMem
+    FreeMemory(*LibCurl_SharedMem)
+    ; we allocate *LibCurl_SharedMem wtih size of previous *LibCurl_SharedMem + new data
+    *LibCurl_SharedMem = AllocateMemory(plLibCurl_SharedMemSize + plMemorySize)
+    CopyMemory(*LibCurl_TempSharedMem,  *LibCurl_SharedMem,                         plLibCurl_SharedMemSize)
+    CopyMemory(*LibCurl_TempMemory,     *LibCurl_SharedMem+plLibCurl_SharedMemSize, plMemorySize)
+    ; we free memory
+    FreeMemory(*LibCurl_TempMemory)
+    FreeMemory(*LibCurl_TempSharedMem)
+  EndIf
+  ProcedureReturn plMemorySize
+EndProcedure
+Procedure RW_LibCurl_GetData()
+  Shared *LibCurl_SharedMem
+  ProcedureReturn *LibCurl_SharedMem
 EndProcedure
