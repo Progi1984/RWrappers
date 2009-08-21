@@ -17,11 +17,11 @@ If curl
   ; Debug curl_easy_setopt(curl, #CURLOPT_PROXYUSERPWD, @"proxy_login:proxy_password"); 
 
   Debug curl_easy_setopt(curl, #CURLOPT_URL, @"curl.haxx.se")
-  Debug curl_easy_setopt(curl, #CURLOPT_WRITEFUNCTION, @RW_LibCurl_WriteFunction())
+  Debug curl_easy_setopt(curl, #CURLOPT_WRITEFUNCTION, @RW_LibCurl_WriteStrFunction())
   
   Debug curl_easy_perform(curl)
   Debug curl_easy_cleanup(curl)
   
-  WriteString(fp, RW_LibCurl_GetData(), 0)
+  WriteString(fp, RW_LibCurl_GetString(), 0)
   CloseFile(fp)
 EndIf
