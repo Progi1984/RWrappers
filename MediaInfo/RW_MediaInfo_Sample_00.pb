@@ -1,9 +1,6 @@
 ﻿XIncludeFile "RW_MediaInfo_Inc.pb"
 
-
-
   Handle = MediaInfo_New()
- 
   If Handle
     MessageRequester("MediaInfo: Version", PeekS(MediaInfo_Option(Handle, "Info_Version", "")))
     If MediaInfo_Open(Handle, "Samples\Example.ogg")         
@@ -45,8 +42,3 @@
     MediaInfo_Close(Handle)
   EndIf
   MediaInfo_Delete(Handle)
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 4
-; FirstLine = 2
-; Folding = -
-; EnableUnicode
