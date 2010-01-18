@@ -293,10 +293,10 @@
   Structure PixelWand
     id.l
     name.s{#MaxTextExtent}
-    exception.ExceptionInfo 
-    pixel.MagickPixelPacket 
+    ;-TODOexception.ExceptionInfo 
+    ;-TODOpixel.MagickPixelPacket 
     count.l
-    debug_.MagickBooleanType 
+    ;-TODOdebug_.MagickBooleanType 
     signature.l
   EndStructure
 ;{
