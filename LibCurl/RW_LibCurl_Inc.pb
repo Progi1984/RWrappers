@@ -145,5 +145,8 @@ ProcedureC  RW_LibCurl_WriteDataFunction(*ptr, Size, NMemB, *Stream)
 EndProcedure
 Procedure RW_LibCurl_GetData()
   Shared *LibCurl_SharedMem
-  ProcedureReturn *LibCurl_SharedMem
+  Protected *LibCurl_NewMemory
+  *LibCurl_NewMemory = AllocateMemory(MemorySize(*LibCurl_SharedMem))
+  CopyMemory(*LibCurl_SharedMem, *LibCurl_NewMemory, MemorySize(*LibCurl_SharedMem))
+  ProcedureReturn *LibCurl_NewMemory
 EndProcedure
