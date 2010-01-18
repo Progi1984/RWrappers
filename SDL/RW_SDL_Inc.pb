@@ -44,10 +44,10 @@ ProcedureDLL.l SDL_AllocRW()
   ProcedureReturn CallCFunction(SDLLib, "SDL_AllocRW")
 EndProcedure
 ProcedureDLL.s SDL_AudioDriverName(namebuf.s, maxlen.l)
-  ProcedureReturn PeekS(CallCFunction(SDLLib, "SDL_AudioDriverName", namebuf.s, maxlen.l))
+  ProcedureReturn PeekS(CallCFunction(SDLLib, "SDL_AudioDriverName", @namebuf.s, maxlen.l))
 EndProcedure
 ProcedureDLL.l SDL_AudioInit(driver_name.s)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_AudioInit", driver_name.s)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_AudioInit", @driver_name.s)
 EndProcedure
 ProcedureDLL.l SDL_AudioQuit()
   ProcedureReturn CallCFunction(SDLLib, "SDL_AudioQuit")
@@ -209,10 +209,10 @@ ProcedureDLL.l SDL_GL_GetAttribute(attr.l, value.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_GL_GetAttribute", attr.l, value.l)
 EndProcedure
 ProcedureDLL.l SDL_GL_GetProcAddress(proc.s)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_GL_GetProcAddress", proc.s)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_GL_GetProcAddress", @proc.s)
 EndProcedure
 ProcedureDLL.l SDL_GL_LoadLibrary(path.s)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_GL_LoadLibrary", path.s)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_GL_LoadLibrary", @path.s)
 EndProcedure
 ProcedureDLL.l SDL_GL_Lock()
   ProcedureReturn CallCFunction(SDLLib, "SDL_GL_Lock")
@@ -381,10 +381,10 @@ ProcedureDLL.l SDL_LoadBMP_RW(*src.SDL_RWops, freesrc.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_LoadBMP_RW", *src.SDL_RWops, freesrc.l)
 EndProcedure
 ProcedureDLL.l SDL_LoadFunction(handle.l, name.s)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_LoadFunction", handle.l, name.s)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_LoadFunction", handle.l, @name.s)
 EndProcedure
 ProcedureDLL.l SDL_LoadObject(sofile.s)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_LoadObject", sofile.s)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_LoadObject", @sofile.s)
 EndProcedure
 ProcedureDLL.l SDL_LoadWAV_RW(src.l, freesrc.l, spec.l, audio_buf.l, audio_len.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_LoadWAV_RW", src.l, freesrc.l, spec.l, audio_buf.l, audio_len.l)
@@ -441,7 +441,7 @@ ProcedureDLL.l SDL_RWFromConstMem(mem.l, int.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_RWFromConstMem", mem.l, int.l)
 EndProcedure
 ProcedureDLL.l SDL_RWFromFile(file.s, mode.s)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_RWFromFile",file.s, mode.s)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_RWFromFile",@file.s, @mode.s)
 EndProcedure
 ProcedureDLL.l SDL_RWFromFP(fp.l, autoclose.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_RWFromFP",fp.l, autoclose.l)
@@ -468,7 +468,7 @@ ProcedureDLL.l SDL_ReadLE64(*src.SDL_RWops)
   ProcedureReturn CallCFunction(SDLLib, "SDL_ReadLE64", *src.SDL_RWops)
 EndProcedure
 ProcedureDLL.l SDL_RegisterApp(name.s, style.l, hInst.l)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_RegisterApp", name.s, style.l, hInst.l)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_RegisterApp", @name.s, style.l, hInst.l)
 EndProcedure
 ProcedureDLL.l SDL_RemoveTimer(id.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_RemoveTimer", id.l)
@@ -507,7 +507,7 @@ ProcedureDLL.l SDL_SetCursor(cursor.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_SetCursor", cursor.l)
 EndProcedure
 ProcedureDLL.l SDL_SetError(message.s)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_SetError", message.s)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_SetError", @message.s)
 EndProcedure
 ProcedureDLL.l SDL_SetEventFilter(filter.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_SetEventFilter", filter.l)
@@ -566,11 +566,11 @@ EndProcedure
 ProcedureDLL.l SDL_UpperBlit(*src.SDL_Surface, *srcrect.SDL_Rect, *dst.SDL_Surface, *dstrect.SDL_Rect)
   ProcedureReturn CallCFunction(SDLLib, "SDL_UpperBlit", *src.SDL_Surface, *srcrect.SDL_Rect, *dst.SDL_Surface, *dstrect.SDL_Rect)
 EndProcedure
-ProcedureDLL.s SDL_VideoDriverName(*namebuf.s, maxlen.l)
-  ProcedureReturn PeekS(CallCFunction(SDLLib, "SDL_VideoDriverName", *namebuf.s, maxlen.l))
+ProcedureDLL.s SDL_VideoDriverName(*namebuf, maxlen.l)
+  ProcedureReturn PeekS(CallCFunction(SDLLib, "SDL_VideoDriverName", *namebuf, maxlen.l))
 EndProcedure
 ProcedureDLL.l SDL_VideoInit(driver_name.s, flags.l)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_VideoInit", driver_name.s, flags.l)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_VideoInit", @driver_name.s, flags.l)
 EndProcedure
 ProcedureDLL.l SDL_VideoModeOK(width.l, height.l, bpp.l, flags.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_VideoModeOK", width.l, height.l, bpp.l, flags.l)
@@ -581,8 +581,8 @@ EndProcedure
 ProcedureDLL.l SDL_WaitEvent(event.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_WaitEvent", event)
 EndProcedure
-ProcedureDLL.l SDL_WM_GetCaption(*title.s, *icon.s)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_WM_GetCaption", *title.s, *icon.s)
+ProcedureDLL.l SDL_WM_GetCaption(*title, *icon)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_WM_GetCaption", *title, *icon)
 EndProcedure
 ProcedureDLL.l SDL_WM_GrabInput(mode.l)
   ; mode Enum SDL_GrabMode
@@ -592,7 +592,7 @@ ProcedureDLL.l SDL_WM_IconifyWindow()
   ProcedureReturn CallCFunction(SDLLib, "SDL_WM_IconifyWindow")
 EndProcedure
 ProcedureDLL.l SDL_WM_SetCaption(title.s , icon.s)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_WM_SetCaption", title.s, icon.s)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_WM_SetCaption", @title.s, @icon.s)
 EndProcedure
 ProcedureDLL.l SDL_WM_SetIcon(*icon.SDL_Surface, mask.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_WM_SetIcon", *icon.SDL_Surface, mask.l)
@@ -628,23 +628,23 @@ ProcedureDLL.l SDL_WriteLE64(*dst.SDL_RWops, value.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_WriteLE64", *dst.SDL_RWops, value.l)
 EndProcedure
 ProcedureDLL.s SDL_getenv(name.s)
-  ProcedureReturn PeekS(CallCFunction(SDLLib, "SDL_getenv", name.s))
+  ProcedureReturn PeekS(CallCFunction(SDLLib, "SDL_getenv", @name.s))
 EndProcedure
-ProcedureDLL.l SDL_iconv(*cd.SDL_iconv_t, *inbuf.s, inbytesleft.l, *outbuf.s, outbytesleft.l)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_iconv", *cd.SDL_iconv_t, *inbuf.s, inbytesleft.l, *outbuf.s, outbytesleft.l)
+ProcedureDLL.l SDL_iconv(*cd.SDL_iconv_t, *inbuf, inbytesleft.l, *outbuf, outbytesleft.l)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_iconv", *cd.SDL_iconv_t, *inbuf, inbytesleft.l, *outbuf, outbytesleft.l)
 EndProcedure
 ProcedureDLL.l SDL_iconv_close(*cd.SDL_iconv_t)
   ProcedureReturn CallCFunction(SDLLib, "SDL_iconv_close", *cd.SDL_iconv_t)
 EndProcedure
 ProcedureDLL.l SDL_iconv_open(tocode.s, fromcode.s)
   ; Returns SDL_iconv_t
-  ProcedureReturn CallCFunction(SDLLib, "SDL_iconv_open", tocode.s, fromcode.s)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_iconv_open", @tocode.s, @fromcode.s)
 EndProcedure
 ProcedureDLL.s SDL_iconv_string(tocode.s, fromcode.s, inbuf.s, inbytesleft.l)
-  ProcedureReturn PeekS(CallCFunction(SDLLib, "SDL_iconv_string", tocode.s, fromcode.s, inbuf.s, inbytesleft.l))
+  ProcedureReturn PeekS(CallCFunction(SDLLib, "SDL_iconv_string", @tocode.s, @fromcode.s, @inbuf.s, inbytesleft.l))
 EndProcedure
 ProcedureDLL.s SDL_lltoa(value.l, string.s, radix.l)
-  ProcedureReturn PeekS(CallCFunction(SDLLib, "SDL_lltoa", value.l, string.s, radix.l))
+  ProcedureReturn PeekS(CallCFunction(SDLLib, "SDL_lltoa", value.l, @string.s, radix.l))
 EndProcedure
 ProcedureDLL.l SDL_mutexP(mutex.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_mutexP", mutex.l)
@@ -653,16 +653,16 @@ ProcedureDLL.l SDL_mutexV(mutex.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_mutexV", mutex.l)
 EndProcedure
 ProcedureDLL.l SDL_putenv(variable.s)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_putenv", variable.s)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_putenv", @variable.s)
 EndProcedure
 ProcedureDLL.l SDL_revcpy(dst.l, src.l, len.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_revcpy", dst.l, src.l, len.l)
 EndProcedure
 ProcedureDLL.l SDL_snprintf(text.s, maxlen.l, fmt.s)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_snprintf", text.s, maxlen.l, fmt.s)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_snprintf", @text.s, maxlen.l, @fmt.s)
 EndProcedure
 ProcedureDLL.s SDL_strdup(string.s)
-  ProcedureReturn PeekS(CallCFunction(SDLLib, "SDL_strdup", string.s))
+  ProcedureReturn PeekS(CallCFunction(SDLLib, "SDL_strdup", @string.s))
 EndProcedure
 ProcedureDLL.l SDL_strlcat(dst.l, src.l, maxlen.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_strlcat", dst.l, src.l, maxlen.l)
@@ -670,14 +670,14 @@ EndProcedure
 ProcedureDLL.l SDL_strlcpy(dst.l, src.l, maxlen.l)
   ProcedureReturn CallCFunction(SDLLib, "SDL_strlcpy", dst.l, src.l, maxlen.l)
 EndProcedure
-ProcedureDLL.l SDL_strtoull(string.s, *endp.s, base.l)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_strtoull", string.s, *endp.s, base.l)
+ProcedureDLL.l SDL_strtoull(string.s, *endp, base.l)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_strtoull", @string.s, *endp, base.l)
 EndProcedure
 ProcedureDLL.s SDL_ulltoa(value.l, string.s, radix.l)
-  ProcedureReturn PeekS(CallCFunction(SDLLib, "SDL_ulltoa", value.l, string.s, radix.l))
+  ProcedureReturn PeekS(CallCFunction(SDLLib, "SDL_ulltoa", value.l, @string.s, radix.l))
 EndProcedure
 ProcedureDLL.l SDL_vsnprintf(text.s, maxlen.l, fmt.s, ap.l)
-  ProcedureReturn CallCFunction(SDLLib, "SDL_vsnprintf", text.s, maxlen.l, fmt.s, ap.l)
+  ProcedureReturn CallCFunction(SDLLib, "SDL_vsnprintf", @text.s, maxlen.l, @fmt.s, ap.l)
 EndProcedure
 
 ;-Macros
@@ -692,10 +692,3 @@ EndProcedure
 
 ;-Plugins
 XIncludeFile "RW_SDL_IncPlugins.pb"
-
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 693
-; FirstLine = 182
-; Folding = AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+
-; EnableCompileCount = 0
-; EnableBuildCount = 0

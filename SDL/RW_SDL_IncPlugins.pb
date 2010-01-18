@@ -8,7 +8,7 @@ ProcedureDLL.l SDL_IMG_Linked_Version()
   ProcedureReturn CallCFunction(SDL_ImageLib, "IMG_Linked_Version")
 EndProcedure
 ProcedureDLL.l SDL_IMG_Load(file.s)
-  ProcedureReturn CallCFunction(SDL_ImageLib, "IMG_Load",file.s)
+  ProcedureReturn CallCFunction(SDL_ImageLib, "IMG_Load",@file.s)
 EndProcedure
 ProcedureDLL.l SDL_IMG_LoadBMP_RW(*src.SDL_RWops)
   ; Returns SDL_Surface
@@ -48,7 +48,7 @@ ProcedureDLL.l SDL_IMG_LoadTIF_RW(*src.SDL_RWops)
 EndProcedure
 ProcedureDLL.l SDL_IMG_LoadTyped_RW(*src.SDL_RWops, freesrc.l, type.s)
   ; Returns SDL_Surface
-  ProcedureReturn CallCFunction(SDL_ImageLib, "IMG_LoadTyped_RW", *src.SDL_RWops, freesrc.l, type.s)
+  ProcedureReturn CallCFunction(SDL_ImageLib, "IMG_LoadTyped_RW", *src.SDL_RWops, freesrc.l, @type.s)
 EndProcedure
 ProcedureDLL.l SDL_IMG_LoadXCF_RW(*src.SDL_RWops)
   ; Returns SDL_Surface
@@ -66,9 +66,9 @@ ProcedureDLL.l SDL_IMG_Load_RW(*src.SDL_RWops, freesrc.l)
   ; Returns SDL_Surface
   ProcedureReturn CallCFunction(SDL_ImageLib, "IMG_Load_RW", *src.SDL_RWops, freesrc.l)
 EndProcedure
-ProcedureDLL.l SDL_IMG_ReadXPMFromArray(*xpm.s)
+ProcedureDLL.l SDL_IMG_ReadXPMFromArray(*xpm)
   ; Returns SDL_Surface
-  ProcedureReturn CallCFunction(SDL_ImageLib, "IMG_ReadXPMFromArray", *xpm.s)
+  ProcedureReturn CallCFunction(SDL_ImageLib, "IMG_ReadXPMFromArray", *xpm)
 EndProcedure
 ProcedureDLL.l SDL_IMG_isBMP(*src.SDL_RWops)
   ProcedureReturn CallCFunction(SDL_ImageLib, "IMG_isBMP", *src.SDL_RWops)
@@ -163,10 +163,10 @@ ProcedureDLL.l SDL_TTF_Linked_Version(compile_version.l)
   ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_Linked_Version", compile_version.l)
 EndProcedure
 ProcedureDLL.l SDL_TTF_OpenFont(file.s, ptsize.l)
-  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_OpenFont", file.s, ptsize.l)
+  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_OpenFont", @file.s, ptsize.l)
 EndProcedure
 ProcedureDLL.l SDL_TTF_OpenFontIndex(file.s, ptsize.l, index.l)
-  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_OpenFontIndex", file.s, ptsize.l, index.l)
+  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_OpenFontIndex", @file.s, ptsize.l, index.l)
 EndProcedure
 ProcedureDLL.l SDL_TTF_OpenFontIndexRW(*src.SDL_RWops, freesrc.l, ptsize.l, index.l)
   ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_OpenFontIndexRW", *src.SDL_RWops, freesrc.l, ptsize.l, index.l)
@@ -187,43 +187,43 @@ ProcedureDLL.l SDL_TTF_RenderGlyph_Solid(font.l, ch.l, *fg.SDL_Color)
   ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderGlyph_Solid", font.l, ch.l, *fg.SDL_Color)
 EndProcedure
 ProcedureDLL.l SDL_TTF_RenderText_Blended(font.l, text.s, *fg.SDL_Color)
-  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderText_Blended", font.l, text.s, *fg.SDL_Color)
+  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderText_Blended", font.l, @text.s, *fg.SDL_Color)
 EndProcedure
 ProcedureDLL.l SDL_TTF_RenderText_Shaded(font.l, text.s, *fg.SDL_Color, *bg.SDL_Color)
-  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderText_Shaded", font.l, text.s, *fg.SDL_Color, *bg.SDL_Color)
+  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderText_Shaded", font.l, @text.s, *fg.SDL_Color, *bg.SDL_Color)
 EndProcedure
 ProcedureDLL.l SDL_TTF_RenderText_Solid(font.l, text.s, *fg.SDL_Color)
-  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderText_Solid", font.l, text.s, *fg.SDL_Color)
+  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderText_Solid", font.l, @text.s, *fg.SDL_Color)
 EndProcedure
 ProcedureDLL.l SDL_TTF_RenderUNICODE_Blended(font.l, text.s, *fg.SDL_Color)
-  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderUNICODE_Blended", font.l, text.s, *fg.SDL_Color)
+  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderUNICODE_Blended", font.l, @text.s, *fg.SDL_Color)
 EndProcedure
 ProcedureDLL.l SDL_TTF_RenderUNICODE_Shaded(font.l, text.s, *fg.SDL_Color, *bg.SDL_Color)
-  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderUNICODE_Shaded", font.l, text.s, *fg.SDL_Color, *bg.SDL_Color)
+  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderUNICODE_Shaded", font.l, @text.s, *fg.SDL_Color, *bg.SDL_Color)
 EndProcedure
 ProcedureDLL.l SDL_TTF_RenderUNICODE_Solid(font.l, text.s, *fg.SDL_Color)
-  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderUNICODE_Solid", font.l, text.s, *fg.SDL_Color)
+  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderUNICODE_Solid", font.l, @text.s, *fg.SDL_Color)
 EndProcedure
 ProcedureDLL.l SDL_TTF_RenderUTF8_Blended(font.l, text.s, *fg.SDL_Color)
-  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderUTF8_Blended", font.l, text.s, *fg.SDL_Color)
+  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderUTF8_Blended", font.l, @text.s, *fg.SDL_Color)
 EndProcedure
 ProcedureDLL.l SDL_TTF_RenderUTF8_Shaded(font.l, text.s, *fg.SDL_Color, *bg.SDL_Color)
-  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderUTF8_Shaded", font.l, text.s, *fg.SDL_Color, *bg.SDL_Color)
+  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderUTF8_Shaded", font.l, @text.s, *fg.SDL_Color, *bg.SDL_Color)
 EndProcedure
 ProcedureDLL.l SDL_TTF_RenderUTF8_Solid(font.l, text.s, *fg.SDL_Color)
-  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderUTF8_Solid", font.l, text.s, *fg.SDL_Color)
+  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_RenderUTF8_Solid", font.l, @text.s, *fg.SDL_Color)
 EndProcedure
 ProcedureDLL.l SDL_TTF_SetFontStyle(font.l, style.l)
   ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_SetFontStyle", font.l, style.l)
 EndProcedure
 ProcedureDLL.l SDL_TTF_SizeText(font.l, text.s, w.l, h.l)
-  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_SizeText", font.l, text.s, w.l, h.l)
+  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_SizeText", font.l, @text.s, w.l, h.l)
 EndProcedure
 ProcedureDLL.l SDL_TTF_SizeUNICODE(font.l, text.s, w.l, h.l)
-  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_SizeUNICODE", font.l, text.s, w.l, h.l)
+  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_SizeUNICODE", font.l, @text.s, w.l, h.l)
 EndProcedure
 ProcedureDLL.l SDL_TTF_SizeUTF8(font.l, text.s, w.l, h.l)
-  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_SizeUTF8", font.l, text.s, w.l, h.l)
+  ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_SizeUTF8", font.l, @text.s, w.l, h.l)
 EndProcedure
 ProcedureDLL.l SDL_TTF_WasInit()
   ProcedureReturn CallCFunction(SDL_TTF, "SDL_TTF_WasInit")
@@ -237,9 +237,3 @@ ProcedureDLL.s SDL_TTF_GetError()
 EndProcedure
 ;}
 
-
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 239
-; Folding = AAAAAAAAAAAg
-; EnableCompileCount = 0
-; EnableBuildCount = 0

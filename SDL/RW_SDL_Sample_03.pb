@@ -5,7 +5,7 @@ Procedure WaitKey()
   Protected event.SDL_Event
   Repeat
     SDL_WaitEvent(@event)
-  Until event\type = #SDL_KEYUP And event\key\keysym\scancode = #SDLK_ESCAPE
+  Until event\type = #SDL_QUIT And event\key\keysym\scancode = #SDLK_ESCAPE
 EndProcedure
 
 Global *ecran.SDL_Surface
@@ -35,7 +35,3 @@ Global IntI.l               = 0
   SDL_Quit()
 SDLW_End()
 End
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; Folding = -
-; EnableCompileCount = 2
-; EnableBuildCount = 0

@@ -51,7 +51,7 @@ Enumeration ;  #SDL_EventType
   #SDL_JOYHATMOTION  		  ; Joystick hat position change 
   #SDL_JOYBUTTONDOWN  		; Joystick button pressed 
   #SDL_JOYBUTTONUP  			; Joystick button released 
-  #SDL_QUIT			          =268599052; User-requested quit 
+  #SDL_QUIT			          =65538; User-requested quit 
   #SDL_SYSWMEVENT			    ; System specific event 
   #SDL_EVENT_RESERVEDA		; Reserved For future use.. 
   #SDL_EVENT_RESERVEDB		; Reserved For future use.. 
@@ -77,7 +77,7 @@ Enumeration
 	#SDLK_CLEAR		= 12
 	#SDLK_RETURN		= 13
 	#SDLK_PAUSE		= 19
-	#SDLK_ESCAPE		= 27
+	#SDLK_ESCAPE		= 65539
 	#SDLK_SPACE		= 32
 	#SDLK_EXCLAIM		= 33
 	#SDLK_QUOTEDBL		= 34
@@ -411,13 +411,13 @@ Structure SDL_keysym
   unicode .l
 EndStructure
 Structure SDL_ActiveEvent
-  type  .l
-  gain  .l
-  state .l
+  type  .c
+  gain  .c
+  state .c
 EndStructure
 Structure SDL_KeyboardEvent
-  type  .l
-  state .l
+  type  .c
+  state .c
   keysym.SDL_keysym
 EndStructure
 Structure SDL_MouseMotionEvent
@@ -594,9 +594,3 @@ EndStructure
 ;Structure SDL_Sem        = Long
 ;Structure SDL_Joystick   = Long
 ;}
-
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 596
-; Folding = AAAAAA9
-; EnableCompileCount = 0
-; EnableBuildCount = 0

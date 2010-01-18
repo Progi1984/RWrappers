@@ -58,9 +58,3 @@ Global continuer.l             = 1
   
 SDLW_End()
 End
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 22
-; FirstLine = 16
-; Folding = -
-; EnableCompileCount = 1
-; EnableBuildCount = 0

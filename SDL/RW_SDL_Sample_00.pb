@@ -23,7 +23,3 @@ Global done     .b                = #False
   SDL_Quit()  
 SDLW_End()
 End
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; Folding = -
-; EnableCompileCount = 3
-; EnableBuildCount = 0

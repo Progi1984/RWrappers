@@ -44,9 +44,3 @@ Global positionSapin.SDL_Rect
 
 SDLW_End()
 End
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 34
-; FirstLine = 2
-; Folding = -
-; EnableCompileCount = 1
-; EnableBuildCount = 0
