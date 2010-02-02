@@ -1,94 +1,94 @@
 ﻿XIncludeFile "RW_PostGreSQL_Inc.pb"
 
-Procedure PGQuitCnx(conn.PGconn)
-  PQfinish(conn)
-EndProcedure
-
-  Global conninfo.s
-  Global conn.PGconn
-  Global res.PGresult
-  Global nFields.l
-  Global i.l, j.l
-  conninfo = "dbname = postgres"
+  Global hCnx.PGconn
+  Global lRes.PGResult
+  Global lNbFields.l,lIncA.l, lIncB.l
+  Global sCnxIP.s       = ""
+  Global sCnxPort.s     = ""
+  Global sCnxOption.s   = ""
+  Global sCnxTTY.s      = ""
+  Global sCnxDBName.s   = ""
+  Global sCnxLogin.s    = ""
+  Global sCnxPassword.s = ""
+  Global sCnxInfo.s     = "hostaddr="+sCnxIP+" port="+sCnxPort+" options="+sCnxOption+" tty="+sCnxTTY+" dbname="+sCnxDBName+" user="+sCnxLogin+" password="+sCnxPassword
 
   ; Make a connection To the database 
-  ;conn = PQconnectdb(conninfo)
-  conn = PQsetdbLogin("192.168.14.23", "5432", "", "","beta-bddmat", "postgres", "asfpmo") 
+  hCnx = PQconnectdb(sCnxInfo)
+  ; OR
+  ;hCnx = PQsetdbLogin(sCnxIP, sCnxPort, sCnxOption, sCnxTTY,sCnxDBName, sCnxLogin, sCnxPassword) 
   
-;  PGQuitCnx(conn)
   ; Check To see that the backend connection was successfully made 
-  If (PQstatus(conn) <> #CONNECTION_OK)
-    Debug "Connection to database failed: " + PeekS(PQerrorMessage(conn))
-    PGQuitCnx(conn)
+  If (PQstatus(hCnx) <> #CONNECTION_OK)
+    Debug "Connection to database failed: " + PeekS(PQerrorMessage(hCnx))
+    PQfinish(hCnx)
+    End
   Else
     Debug "Connection to database successed"
   EndIf
-   
 
   ; Start a transaction block 
-  res = PQexec(conn, "BEGIN")
-  If PQresultStatus(res) <> #PGRES_COMMAND_OK
-    Debug "BEGIN command failed : " + PeekS(PQerrorMessage(conn))
-    PQclear(res)
-    PGQuitCnx(conn)
+  lRes = PQexec(hCnx, "BEGIN")
+  If PQResultStatus(lRes) <> #PGRES_COMMAND_OK
+    Debug "BEGIN command failed : " + PeekS(PQerrorMessage(hCnx))
+    PQclear(lRes)
+    PQfinish(hCnx)
   Else
     Debug "BEGIN command successed"
   EndIf
-
-  ;Should PQclear PGresult whenever it is no longer needed To avoid memory leaks
-  PQclear(res)
+  ;Should PQclear PGlResult whenever it is no longer needed To avoid memory leaks
+  PQclear(lRes)
 
   ;Fetch rows from pg_database, the system catalog of databases
-  res = PQexec(conn, "DECLARE myportal CURSOR FOR select * from pg_database")
-  If (PQresultStatus(res) <> #PGRES_COMMAND_OK)
-    Debug "DECLARE CURSOR failed: " + PeekS(PQerrorMessage(conn))
-    PQclear(res)
-    PGQuitCnx(conn)
+  lRes = PQexec(hCnx, "DECLARE myportal CURSOR FOR select * from pg_database")
+  If (PQResultStatus(lRes) <> #PGRES_COMMAND_OK)
+    Debug "DECLARE CURSOR failed: " + PeekS(PQerrorMessage(hCnx))
+    PQclear(lRes)
+    PQfinish(hCnx)
   Else
     Debug "DECLARE CURSOR successed"
   EndIf
-  PQclear(res)
-
-  res = PQexec(conn, "FETCH ALL in myportal")
-  If (PQresultStatus(res) <> #PGRES_TUPLES_OK)
-    Debug "FETCH ALL failed: " + PeekS(PQerrorMessage(conn))
-    PQclear(res)
-    PGQuitCnx(conn)
+  PQclear(lRes)
+  lRes = PQexec(hCnx, "FETCH ALL in myportal")
+  If (PQResultStatus(lRes) <> #PGRES_TUPLES_OK)
+    Debug "FETCH ALL failed: " + PeekS(PQerrorMessage(hCnx))
+    PQclear(lRes)
+    PQfinish(hCnx)
   Else
     Debug "FETCH ALL successed"
   EndIf
   
   Debug "--- Attributes Names"
   ; first, print out the attribute names 
-  nFields = PQnfields(res)
-  For i = 0 To nFields-1
-    Debug PeekS(PQfname(res, i))
+  lNbFields = PQnfields(lRes)
+  For lIncA = 0 To lNbFields - 1
+    Debug ">"+PeekS(PQfname(lRes, lIncA))
   Next
-  Debug ""
-  Debug ""
-  
   ; Next, print out the rows 
   Debug "--- Rows"
-  For i = 0 To PQntuples(res) - 1
-    For j = 0 To  nFields - 1
-      Debug PeekS(PQgetvalue(res, i, j))
-    Next
-    Debug ""
+  For lIncA = 0 To PQntuples(lRes) - 1
+    Debug ">> datname       : "+PeekS(PQgetvalue(lRes, lIncA, 0))
+    Debug ">> datdba        : "+PeekS(PQgetvalue(lRes, lIncA, 1))
+    Debug ">> encoding      : "+PeekS(PQgetvalue(lRes, lIncA, 2))
+    Debug ">> datistemplate : "+PeekS(PQgetvalue(lRes, lIncA, 3))
+    Debug ">> datallowconn  : "+PeekS(PQgetvalue(lRes, lIncA, 4))
+    Debug ">> datconnlimit  : "+PeekS(PQgetvalue(lRes, lIncA, 5))
+    Debug ">> datlastsysoid : "+PeekS(PQgetvalue(lRes, lIncA, 6))
+    Debug ">> datvacuumxid  : "+PeekS(PQgetvalue(lRes, lIncA, 7))
+    Debug ">> datfrozenxid  : "+PeekS(PQgetvalue(lRes, lIncA, 8))
+    Debug ">> dattablespace : "+PeekS(PQgetvalue(lRes, lIncA, 9))
+    Debug ">> datconfig     : "+PeekS(PQgetvalue(lRes, lIncA, 10))
+    Debug ">> datacl        : "+PeekS(PQgetvalue(lRes, lIncA, 11))
+    Debug "-------------------------------------------------------"
   Next
-  PQclear(res)
+  PQclear(lRes)
 
   ; close the portal ... we don't bother to check for errors ... 
-  res = PQexec(conn, "CLOSE myportal")
-  PQclear(res)
+  lRes = PQexec(hCnx, "CLOSE myportal")
+  PQclear(lRes)
 
   ; End the transaction 
-  res = PQexec(conn, "END")
-  PQclear(res)
+  lRes = PQexec(hCnx, "END")
+  PQclear(lRes)
 
   ; close the connection To the database And cleanup 
-  PQfinish(conn)
-
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 73
-; FirstLine = 39
-; Folding = --
+  PQfinish(hCnx)

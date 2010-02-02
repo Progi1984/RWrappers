@@ -51,10 +51,9 @@
 	EndIf
 
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
+; IDE Options = PureBasic 4.40 (Windows - x86)
 ; CursorPosition = 30
 ; FirstLine = 3
-; Folding = -
 ; EnableXP
-; EnableCompileCount = 7
+; EnableCompileCount = 8
 ; EnableBuildCount = 0

@@ -31,7 +31,7 @@
 	sfSound_SetBuffer(Fart, Buffer) 
 	sfSound_SetLoop(Fart, #False)
 
-	App = sfRenderWindow_Create(@VideoMode, "Sound with SFML", #sfClose, @WSettings)
+	App = sfRenderWindow_Create(@VideoMode, "Sound with SFML", #sfClose|#sfTitlebar, @WSettings)
 	
 	sfRenderWindow_SetBackgroundColor(App, @Color)
 	sfRenderWindow_SetFramerateLimit(App, 30)
@@ -41,8 +41,8 @@
 
 	Text = sfString_Create()
 	sfString_SetText(Text, "Turn the sound on.\nClick anywhere on the screen.\nMove the mouse. Click again.\nTry clicking in the corners.")
-	sfString_SetX(Text, 30.)
-	sfString_SetY(Text, 20.)
+	sfString_SetX(Text, 30)
+	sfString_SetY(Text, 20)
 	With Color
 	  \r = 150
 	  \g = 100
@@ -57,13 +57,14 @@
 				sfRenderWindow_Close(App)
 		  EndIf
 			If EventHandler\Type = #sfEvtKeyPressed 
-        handler(key, keyevent)
+        handler(Key, keyevent)
 			  If *Key\Code = #sfKeyEscape
 				  sfRenderWindow_Close(App)
 				EndIf
 		  EndIf
 			If EventHandler\Type = #sfEvtMouseButtonPressed 
 			  Handler(MouseButton, MouseButtonEvent)
+			  Debug *MouseButton
 			  If *MouseButton\Button = #sfButtonLeft
   				sfSound_SetPitch(Fart, 1.5 - 1.*sfInput_GetMouseY(InputHandler)/WindowHeight)
   				sfSound_SetPosition(Fart, 1.*(sfInput_GetMouseX(InputHandler) - WindowWidth/2)/(WindowWidth/20), 2., -2.)
@@ -74,7 +75,3 @@
 		sfRenderWindow_DrawString(App, Text)
 		sfRenderWindow_Display(App)
   Wend
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 33
-; Folding = w--
-; EnableUnicode

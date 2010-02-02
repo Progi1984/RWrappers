@@ -37,8 +37,7 @@ Global ish.ISL_ScriptHeader
 	  EndIf
 	EndIf
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
+; IDE Options = PureBasic 4.40 (Windows - x86)
 ; CursorPosition = 18
-; Folding = -
-; EnableCompileCount = 0
+; EnableCompileCount = 1
 ; EnableBuildCount = 0

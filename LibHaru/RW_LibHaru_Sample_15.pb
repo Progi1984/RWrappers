@@ -170,9 +170,9 @@ XIncludeFile "RW_LibHaru_Inc.pb"
   HPDF_Free (pdf)
 
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
+; IDE Options = PureBasic 4.40 (Windows - x86)
 ; CursorPosition = 166
 ; FirstLine = 105
-; Folding = 5
-; EnableCompileCount = 2
+; Folding = 9
+; EnableCompileCount = 3
 ; EnableBuildCount = 0

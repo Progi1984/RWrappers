@@ -1,6 +1,6 @@
 XIncludeFile "RW_FreeImage_Inc.pb"
 
-Procedure Sample_FreeImageErrorHandler(fif.l, message.l)
+ProcedureC Sample_FreeImageErrorHandler(fif.l, message.l)
 	Debug " *** Sample_FreeImageErrorHandler START"
 	If fif <> #FIF_UNKNOWN
 		Debug FreeImage_GetFormatFromFIF(fif)+" Format"
@@ -671,7 +671,7 @@ Procedure Sample_TestJPEGCrop(src_file.s)
 	bResult = FreeImage_JPEGCrop(src_file, "Samples\TestJPEGCrop_1.jpg", 50, 100, 550, 400)
 EndProcedure
 Procedure Sample_TestJPEG()
-  Protected src_file.s = "exif.jpg"
+  Protected src_file.s = "Samples\exif.jpg"
 
 	Debug ">Sample_TestJPEG (should throw exceptions) ..."
 
@@ -725,5 +725,7 @@ FreeImage_Initialise()
 	
 FreeImage_DeInitialise()
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; Folding = K+----------9wbK9
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 673
+; FirstLine = 26
+; Folding = BAQ-

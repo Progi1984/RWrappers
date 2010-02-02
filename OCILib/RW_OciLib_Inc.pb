@@ -438,7 +438,6 @@ CompilerEndIf
   OCI_TransactionCreate(a.l,b.l,c.l,d.l) As "_OCI_TransactionCreate@16"
 EndImport
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 401
-; FirstLine = 382
-; Folding = -
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 194
+; FirstLine = 191

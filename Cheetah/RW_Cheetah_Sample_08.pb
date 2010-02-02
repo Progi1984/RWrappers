@@ -22,7 +22,7 @@ EndStructure
    Global cust       .CUSTOMER_TYPE
                             
    ; CREATE A DBASE COMPATIBLE DATABASE 
-   sData = "disk  = dbasetest.dbf;"    
+   sData = "disk  = Samples\Sample_08.dbf;"    
    sData + "type  = dbase;"            
    sData + "memosize = 512;"           ; always 512 for dBase style databases
    sData + "field = custid,c,8,0;"     ; character
@@ -37,17 +37,17 @@ EndStructure
    If errcode  : xdbShutdown():End :EndIf
    Debug "Database created."
    
-   sData = "disk = dbasetest.btx;"  
+   sData = "disk = Samples\Sample_08.btx;"  
    errcode = xdbCreateIndex(sData) 
    If errcode  : xdbShutdown():End :EndIf
    Debug "Index created"
    
-   sData = "disk=dbasetest.dbf"
+   sData = "disk=Samples\Sample_08.dbf"
    errcode = xdbOpenDatabase(sData, dbfHandle) 
    If errcode  : xdbShutdown():End :EndIf
    Debug "Database opened. Handle ="+Str(dbfHandle)                  
                   
-   sData = "disk=dbasetest.btx"
+   sData = "disk=Samples\Sample_08.btx"
    errcode = xdbOpenIndex(sData, dbfHandle, @idxHandle) 
    If errcode  : xdbShutdown():End :EndIf
    Debug "Index opened. Handle ="+Str(idxHandle)                  
@@ -143,7 +143,6 @@ EndStructure
 
    Debug "Demo Completed"
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 56
-; FirstLine = 17
-; Folding = ---
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 49
+; FirstLine = 56

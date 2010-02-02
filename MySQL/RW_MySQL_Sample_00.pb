@@ -1,18 +1,27 @@
 ﻿XIncludeFile "RW_MySQL_Inc.pb"
 
-  hDB_MySQL = mysql_init(0)
-  Debug mysql_real_connect(hDB_MySQL, "127.0.0.1", "root", "", "glpi", 3306, "", 0)
-  pMyRES = mysql_list_tables(hDB_MySQL, "")
-  If pMyRES <> 0
-    For i = 0 To mysql_num_rows(pMyRES) - 1
-      pMyROW = mysql_fetch_row(pMyRES)
-      Debug PeekS(pMyROW,-1, #PB_Ascii)
-    Next
-    mysql_free_result (pMyRES)
-  EndIf
-  mysql_close (hDB_MySQL)
+  Global hDB.l
+  Global sServerIP.s        = "" 
+  Global lServerPort.l      = 3306
+  Global sServerLogin.s     = ""
+  Global sServerPassword.s  = ""
+  Global sServerDatabase.s  = ""
+  Global pResults.l
+  Global lInc.l
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 12
-; Folding = -
+  hDB = mysql_init(0)
+  Debug mysql_real_connect(hDB, sServerIP, sServerLogin, sServerPassword, sServerDatabase, lServerPort, "", 0)
+  
+  pResults = mysql_list_tables(hDB, "")
+  If pResults <> 0
+    For lInc = 0 To mysql_num_rows(pResults) - 1
+      pMyROW = mysql_fetch_row(pResults)
+      Debug PeekS(pMyROW, -1, #PB_Ascii)
+    Next
+    mysql_free_result (pResults)
+  EndIf
+  mysql_close (hDB)
+
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 17
 ; EnableUnicode

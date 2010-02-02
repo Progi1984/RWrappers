@@ -32,3 +32,8 @@ SDL_Quit()
 SDLW_End()
 Debug "End"
 End
+
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; Folding = -
+; EnableCompileCount = 7
+; EnableBuildCount = 0

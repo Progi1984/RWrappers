@@ -6,9 +6,11 @@
 ; Notes     Convert an XML file into HTML
 ;================================================================
 
-XIncludeFile "RW_LibXML2_Inc.pb"
-XIncludeFile "RW_LibXSLT_Inc.pb"
-XIncludeFile "RW_LibEXSLT_Inc.pb"
+IncludePath "../LibXML/"
+  XIncludeFile "RW_LibXML2_Inc.pb"
+IncludePath ""
+  XIncludeFile "RW_LibXSLT_Inc.pb"
+  XIncludeFile "RW_LibEXSLT_Inc.pb"
 
 
 Global xmlLoadExtDtdDefaultValue.l
@@ -35,6 +37,5 @@ xmlFreeDoc(*doc)
 xsltCleanupGlobals()
 xmlCleanupParser()
 
-; IDE Options = PureBasic 4.10 (Windows - x86)
-; CursorPosition = 8
-; Folding = -
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 12

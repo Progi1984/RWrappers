@@ -92,9 +92,9 @@ Global i.l
 
 
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
+; IDE Options = PureBasic 4.40 (Windows - x86)
 ; CursorPosition = 87
-; FirstLine = 54
+; FirstLine = 51
 ; Folding = -
-; EnableCompileCount = 5
+; EnableCompileCount = 6
 ; EnableBuildCount = 0

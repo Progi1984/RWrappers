@@ -125,7 +125,7 @@ Procedure Test_Stmt(handle.l)
   Debug "[Stmt]"
   stmt = mysql_stmt_init(handle)
   If stmt
-    query.s = "SELECT * FROM people"
+    query.s = "SELECT * FROM testpeople"
     mysql_stmt_prepare(stmt,query,Len(query))
     mysql_stmt_execute(stmt)
     If mysql_stmt_field_count(stmt)
@@ -141,14 +141,19 @@ Procedure Test_Stmt(handle.l)
     Test_Error(handle)
   EndIf
 EndProcedure
-
-;-------------
-
 Test_Client()
+
+Global hDB.l
+Global sServerIP.s        = "" 
+Global lServerPort.l      = 3306
+Global sServerLogin.s     = ""
+Global sServerPassword.s  = ""
+Global sServerDatabase.s  = ""
+
 hDB = mysql_init(#Null)
 If hDB
-  If mysql_real_connect(hDB,"localhost","root","","",3306,"NULL",#Null)
-    If mysql_select_db(hDB,"glpi")
+  If mysql_real_connect(hDB, sServerIP, sServerLogin, sServerPassword, "", lServerPort, "", 0)
+    If mysql_select_db(hDB, sServerDatabase)
       Test_Error(hDB)
     Else
       mysql_autocommit(hDB,#True)
@@ -160,14 +165,14 @@ If hDB
       Test_CharSet(hDB)
       Test_Query(hDB,"SELECT NOW()")
       Test_Query(hDB,"SELECT NOW() 'DateTime', (1+2*16) 'Expression'")
-      Test_Query(hDB,"DROP TABLE people")
-      Test_Query(hDB,"CREATE TABLE people (id INT(8) NOT NULL AUTO_INCREMENT, firstname VARCHAR(64), name VARCHAR(64), PRIMARY KEY (id), UNIQUE KEY id (id), UNIQUE KEY name (name))")
-      Test_Query(hDB,"INSERT INTO people VALUES('','Jean','Dupont')")
-      Test_Query(hDB,"INSERT INTO people VALUES('','Patrice','Durand')")
-      Test_Query(hDB,"INSERT INTO people VALUES('','Hélène','Dubois')")
-      Test_Query(hDB,"INSERT INTO people VALUES('','Léon','Martin'),('','Nathalie','Morin'),('','Hélène','Dujardin')")
-      Test_Query(hDB,"UPDATE people SET firstname='Valérie' WHERE firstname='Hélène'")
-      Test_Query(hDB,"SELECT firstname,name FROM people ORDER BY name ASC")
+      Test_Query(hDB,"DROP TABLE testpeople")
+      Test_Query(hDB,"CREATE TABLE testpeople (id INT(8) NOT NULL AUTO_INCREMENT, firstname VARCHAR(64), name VARCHAR(64), PRIMARY KEY (id), UNIQUE KEY id (id), UNIQUE KEY name (name))")
+      Test_Query(hDB,"INSERT INTO testpeople VALUES('','Jean','Dupont')")
+      Test_Query(hDB,"INSERT INTO testpeople VALUES('','Patrice','Durand')")
+      Test_Query(hDB,"INSERT INTO testpeople VALUES('','Hélène','Dubois')")
+      Test_Query(hDB,"INSERT INTO testpeople VALUES('','Léon','Martin'),('','Nathalie','Morin'),('','Hélène','Dujardin')")
+      Test_Query(hDB,"UPDATE testpeople SET firstname='Valérie' WHERE firstname='Hélène'")
+      Test_Query(hDB,"SELECT firstname,name FROM testpeople ORDER BY name ASC")
       Test_Stmt(hDB)
     EndIf
   Else
@@ -176,8 +181,7 @@ If hDB
   mysql_close(hDB)
 EndIf
 
-;-------------
-
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 2
-; Folding = Q4X26-
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 182
+; FirstLine = 32
+; Folding = Ag-

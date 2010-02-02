@@ -31,7 +31,7 @@ Global width.l, height.l
   	ISL_ExecuteScriptOnImage(image,width,height)
 
 	  ; Save generated image As bitmap file 
-  	ISL_SaveBMPImage(@"Samples\RW_ISL_Ex5_Output.bmp",image,width,height)
+  	ISL_SaveBMPImage(@"Samples\RW_ISL_Ex0_Output.bmp",image,width,height)
 
 	  ; Free all memory resources used by library 
     ISL_Finish()
@@ -39,8 +39,7 @@ Global width.l, height.l
 	  FreeMemory(image)
 	EndIf
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
+; IDE Options = PureBasic 4.40 (Windows - x86)
 ; CursorPosition = 33
-; Folding = -
-; EnableCompileCount = 0
+; EnableCompileCount = 2
 ; EnableBuildCount = 0

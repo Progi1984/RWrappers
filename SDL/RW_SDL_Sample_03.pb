@@ -35,3 +35,7 @@ Global IntI.l               = 0
   SDL_Quit()
 SDLW_End()
 End
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; Folding = -
+; EnableCompileCount = 8
+; EnableBuildCount = 0

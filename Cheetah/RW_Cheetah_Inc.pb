@@ -504,6 +504,6 @@ Procedure.l xdbMakeDateTime(sDateTime.s, *nDateTime)
   ProcedureReturn ReturnVal
 EndProcedure
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 505
-; Folding = AAAAAAAAAAw
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 25
+; Folding = EAAAgAg

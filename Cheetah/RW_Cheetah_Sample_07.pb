@@ -11,7 +11,7 @@
    Global nRecNum   .l
    Global NumRead   .l
                             
-   sData = "disk = standalone.btx;"  
+   sData = "disk = Samples\Sample_07.btx;"  
    errcode = xdbCreateIndex(sData) 
    If errcode  : xdbShutdown():End :EndIf
 
@@ -104,7 +104,6 @@ Procedure DisplayRecords()
 EndProcedure
 
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 100
-; FirstLine = 52
-; Folding = ---
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 13
+; Folding = -

@@ -49,8 +49,7 @@ DataSection
     Data.c 0,0,0,24,0,0,0,57,0,0,0,0,0,0,0,1,0,0,0,100,0,0,0,0,0,0,0,255
 EndDataSection
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
+; IDE Options = PureBasic 4.40 (Windows - x86)
 ; CursorPosition = 31
-; Folding = -
-; EnableCompileCount = 6
+; EnableCompileCount = 7
 ; EnableBuildCount = 0

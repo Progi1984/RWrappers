@@ -11,7 +11,7 @@ Debug "LibVersion >"+PeekS(BZ2_bzlibVersion())
 
   file_bz2.s  = "Samples\Sample_1.txt.bz2"
   file_in.s   = "RW_LibBZip2_Inc.pb"
-  file_out.s   = "RW_LibBZip2_Inc.pb.txt"
+  file_out.s  = "Samples\RW_LibBZip2_Inc.pb.txt"
 
   ; Put in Memory the file to save
   file = OpenFile(#PB_Any, file_in)
@@ -56,7 +56,6 @@ Debug "LibVersion >"+PeekS(BZ2_bzlibVersion())
   CloseFile(file)
   BZ2_bzclose(bz);
 
-; IDE Options = PureBasic 4.10 (Windows - x86)
-; CursorPosition = 45
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 13
 ; FirstLine = 6
-; Folding = -

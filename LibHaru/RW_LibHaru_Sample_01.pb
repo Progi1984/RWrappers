@@ -302,9 +302,9 @@ EndProcedure
     ; clean up 
     HPDF_Free (pdf)
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
+; IDE Options = PureBasic 4.40 (Windows - x86)
 ; CursorPosition = 16
 ; FirstLine = 5
-; Folding = g
-; EnableCompileCount = 7
+; Folding = w
+; EnableCompileCount = 8
 ; EnableBuildCount = 0

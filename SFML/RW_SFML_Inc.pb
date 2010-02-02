@@ -238,7 +238,7 @@
     sfString_GetSize.f(String.l) As "_sfString_GetSize"
     sfString_GetStyle(String.l) As "_sfString_GetStyle"
     sfString_GetRect(String.l) As "_sfString_GetRect"
-    sfRenderWindow_Create(Mode.l, Title.s, Style.l, *Params.sfWindowSettings) As "_sfRenderWindow_Create"
+    sfRenderWindow_Create(Mode.l, Title.p-utf8, Style.l, *Params.sfWindowSettings) As "_sfRenderWindow_Create"
     sfRenderWindow_CreateFromHandle(Handle.l, *Params.sfWindowSettings) As "_sfRenderWindow_CreateFromHandle"
     sfRenderWindow_Destroy(RenderWindow.l) As "_sfRenderWindow_Destroy"
     sfRenderWindow_Close(RenderWindow.l) As "_sfRenderWindow_Close"
@@ -413,9 +413,3 @@
     sfWindow_SetJoystickThreshold(Window.l, Threshold.f) As "_sfWindow_SetJoystickThreshold"
   EndImport
 ;}
-
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 270
-; FirstLine = 177
-; Folding = d0
-; EnableUnicode

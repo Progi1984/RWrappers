@@ -1,35 +1,52 @@
 ﻿XIncludeFile "RW_OciLib_Inc.pb"
 
-  ProcedureC err_handler(*err.OCI_Error)
-    Debug "code  : ORA-"+Str(OCI_ErrorGetOCICode(err))
-    Debug "msg   : "+ Str(OCI_ErrorGetString(err))
-    ;Debug "sql   : "+Str(OCI_GetSql(OCI_ErrorGetStatement(err)))
+  ProcedureC Err_handler(*err.OCI_Error)
+    Debug "code  : ORA-"+Str(OCI_ErrorGetOCICode(*err))
+    Debug "msg   : "+ PeekS(OCI_ErrorGetString(*err))
+    ;Debug "sql   : "+ Str(OCI_GetSql(OCI_ErrorGetStatement(err)))
   EndProcedure
 
-  Global cnx.l
+  Global hDB.l
+  Global sPathInstantClient.s = ""
+  Global sServerName.s        = ""
+  Global sServerPort.s        = ""
+  Global sServerInstance.s    = ""
+  Global sServerCnxName.s     = sServerName + ":" + sServerPort + "/" + sServerInstance
+  Global sLogin.s             = ""
+  Global sPassword.s          = ""
   
-  If Not OCI_Initialize(@err_handler(), #Null, #OCI_ENV_DEFAULT)
-    Debug PeekS(OCI_GetLastError())
-    End
+  If Not OCI_Initialize(@Err_handler(), @sPathInstantClient, #OCI_ENV_DEFAULT)
+    If OCI_GetLastError() <> 0
+      Debug PeekS(OCI_GetLastError())
+      End
+    EndIf
   EndIf
   
-  cnx = OCI_ConnectionCreate(@"db", @"usr", @"pwd", #OCI_SESSION_DEFAULT)
-  
-  If (cn <> #Null)
-    Debug OCI_GetVersionServer(cn)
-    
-    Debug "Server major    version : " + Str(OCI_GetServerMajorVersion(cn))
-    Debug "Server minor    version : " + Str(OCI_GetServerMinorVersion(cn))
-    Debug "Server revision version : " + Str(OCI_GetServerRevisionVersion(cn))
-    
-    Debug "Connection      version : " + Str(OCI_GetVersionConnection(cn))
+  hDB = OCI_ConnectionCreate(@sServerCnxName, @sLogin, @sPassword, #OCI_SESSION_DEFAULT)
 
-    OCI_ConnectionFree(cn)
+  If (hDB <> #Null)
+    Debug "Server version > " + PeekS(OCI_GetVersionServer(hDB))
+    
+    Debug "Server major > " + Str(OCI_GetServerMajorVersion(hDB))
+    Debug "Server minor> " + Str(OCI_GetServerMinorVersion(hDB))
+    Debug "Server revision > " + Str(OCI_GetServerRevisionVersion(hDB))
+    Debug "Connection > " + Str(OCI_GetVersionConnection(hDB))
+    Debug "Database > " + PeekS(OCI_GetDatabase(hDB))
+    Debug "Username > " + PeekS(OCI_GetUserName(hDB))
+    Debug "Password > " + PeekS(OCI_GetPassword(hDB))
+    Debug "Format Date (default) > " + PeekS(OCI_GetDefaultFormatDate(hDB))
+    Debug "Format Numeric (default) > " + PeekS(OCI_GetDefaultFormatNumeric(hDB))
+    OCI_ConnectionFree(hDB)
+  Else
+    If OCI_GetLastError() <> 0
+      Debug PeekS(OCI_GetLastError())
+      End
+    EndIf
   EndIf
   
   OCI_Cleanup()
   
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 3
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 15
 ; Folding = -

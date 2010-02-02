@@ -105,7 +105,7 @@ EndProcedure
     HPDF_Page_SetFontAndSize (page, font, 11)
 
     HPDF_Page_BeginText (page)
-    HPDF_Page_MoveTextPos (page, rect1\left + 35, rect1\top - 20)
+    HPDF_Page_MoveTextPos (page, *rect1\left + 35, *rect1\top - 20)
     HPDF_Page_ShowText (page, "Comment Icon.")
     HPDF_Page_EndText (page)
 
@@ -151,9 +151,9 @@ EndProcedure
     ; clean up 
     HPDF_Free (pdf)
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 77
-; FirstLine = 65
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 107
+; FirstLine = 69
 ; Folding = +
-; EnableCompileCount = 21
+; EnableCompileCount = 22
 ; EnableBuildCount = 0

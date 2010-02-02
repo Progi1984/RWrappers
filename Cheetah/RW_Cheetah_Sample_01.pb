@@ -49,8 +49,8 @@ Declare DisplayRecords(dbfHandle.l, idxHandle.l, tagHandle1.l)
   ; You must open the database and index prior to creating any TAGS. It is important that you track the 
   ; handles that are returned from these processes because it is those handles that you use from now on to 
   ; refer To the database, index Or Tag.
-  sData = "disk = Samples\Sample_01.dbf"
-  errcode = xdbOpenDatabase(sData, dbfHandle)
+  sData = "disk=Samples\Sample_01.dbf;"
+  errcode = xdbOpenDatabase(sData, @dbfHandle)
   If errcode
     Debug errcode
     xdbShutdown():End
@@ -228,7 +228,7 @@ Declare DisplayRecords(dbfHandle.l, idxHandle.l, tagHandle1.l)
   EndProcedure
 
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 81
-; FirstLine = 51
-; Folding = ---
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 52
+; FirstLine = 24
+; Folding = +

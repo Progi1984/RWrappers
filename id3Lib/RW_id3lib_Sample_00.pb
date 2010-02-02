@@ -2,8 +2,7 @@
 ; Project   id3lib
 ; Title     Sample_00
 ; Author    Progi1984
-; Date      20/03/08
-; Notes     Listing tags of a MP3 file
+; Date      20/03/08; Notes     Listing tags of a MP3 file
 ;================================================================
 
 XIncludeFile "RW_id3lib_Inc.pb"
@@ -42,7 +41,6 @@ Global id.l, numbers.l, str_l.l, str_s.s
     EndIf
   Wend 
   ID3TagIterator_Delete(*iter) 
-; IDE Options = PureBasic 4.10 (Windows - x86)
-; CursorPosition = 5
-; Folding = 8
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 4
 ; EnableThread

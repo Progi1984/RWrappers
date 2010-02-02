@@ -1,31 +1,36 @@
 ﻿XIncludeFile "RW_MySQL_Inc.pb"
 
-  hDB_MySQL = mysql_init(0)
-  Debug mysql_real_connect(hDB_MySQL, "127.0.0.1", "root", "", "glpi", 3306, "", 0)
-  If mysql_query(hDB_MySQL, "select * from glpi_type_computers") = 0
-;   If mysql_query(hDB_MySQL, "select * from `glpi_users`") = 0
-    pMyRES = mysql_store_result(hDB_MySQL)
-    If pMyRES <> 0
-      Debug pMyRES
-      nbFields = mysql_num_fields(pMyRES)
-      If nbFields > 0
-        Debug "nbFields > "+Str(nbFields)
-        pMyFields = mysql_fetch_fields(pMyRES)
-        Dim myFields.MYSQL_FIELD(nbFields)
-        CopyMemory(pMyFields, @myFields(), SizeOf(MYSQL_FIELD) * nbFields)
-        For i = 0 To nbFields - 1
-          Debug"Le champ " + myFields(i)\name + " est du type " + Str(myFields(i)\type)
+  Global hDB.l
+  Global sServerIP.s        = "" 
+  Global lServerPort.l      = 3306
+  Global sServerLogin.s     = ""
+  Global sServerPassword.s  = ""
+  Global sServerDatabase.s  = ""
+  Global pResults.l, pResultFields.l
+  Global lIncA.l, lNbFields.l
+
+
+  hDB = mysql_init(0)
+  mysql_real_connect(hDB, sServerIP, sServerLogin, sServerPassword, sServerDatabase, lServerPort, "", 0)
+  If mysql_query(hDB, "select * from `table_name`") = 0
+    pResults = mysql_store_result(hDB)
+    If pResults <> 0
+      lNbFields = mysql_num_fields(pResults)
+      If lNbFields > 0
+        Debug "lNbFields > " + Str(lNbFields)
+        pResultFields = mysql_fetch_fields(pResults)
+        Dim dimFields.MYSQL_FIELD(lNbFields)
+        CopyMemory(pResultFields, @dimFields(), SizeOf(MYSQL_FIELD) * lNbFields)
+        For lIncA = 0 To lNbFields - 1
+          Debug"Field > " + dimFields(lIncA)\name + " - Type > " + Str(dimFields(ilIncA)\type)
         Next
-        Debug pMyFields
-        CallDebugger
       EndIf
     EndIf
-    mysql_free_result (pMyRES)
+    mysql_free_result (pResults)
   EndIf  
-  mysql_close (hDB_MySQL)
+  mysql_close (hDB)
   
 XIncludeFile "RW_MySQL_Inc.pb"
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 14
-; Folding = -
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 8
 ; EnableUnicode

@@ -94,7 +94,7 @@ XIncludeFile "RW_LibHaru_Inc.pb"
   ; clean up 
   HPDF_Free (pdf)
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; Folding = 9
-; EnableCompileCount = 5
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; Folding = +
+; EnableCompileCount = 6
 ; EnableBuildCount = 0

@@ -1,5 +1,6 @@
 ﻿XIncludeFile "RW_PostGreSQL_Res.pb"
-ImportC "C:\ZPerso\RW\Next\pgsql\lib\libpq.lib"
+
+ImportC "libpq.lib"
   PQconnectdb.PGconn(conninfo.s) As "_PQconnectdb"
   PQsetdbLogin(pghost.s, pgport.s, pgoptions.s, pgtty.s, dbName.s, login.s, pwd.s) As "_PQsetdbLogin"
   PQconndefaults() As "_PQconndefaults"
@@ -13,7 +14,7 @@ ImportC "C:\ZPerso\RW\Next\pgsql\lib\libpq.lib"
   PQport(conn.PGconn) As "_PQport"
   PQtty(conn.PGconn) As "_PQtty"
   PQoptions(conn.PGconn) As "_PQoptions"
- PQstatus.ConnStatusType(*conn) As "_PQstatus"
+  PQstatus.ConnStatusType(*conn) As "_PQstatus"
   PQerrorMessage(conn.PGconn) As "_PQerrorMessage"
   PQsocket(conn.PGconn) As "_PQsocket"
   PQbackendPID(conn.PGconn) As "_PQbackendPID"
@@ -141,9 +142,3 @@ ImportC "C:\ZPerso\RW\Next\pgsql\lib\libpq.lib"
   pg_valid_server_encoding_id(encoding.l) As "_pg_valid_server_encoding_id"
   PQconnectionNeedsPassword(conn.PGconn) As "_PQconnectionNeedsPassword"
 EndImport
-
-; IDE Options = PureBasic 4.20 (Windows - x86)
-; CursorPosition = 143
-; FirstLine = 100
-; Folding = -
-; EnableUnicode

@@ -36,8 +36,7 @@ If ISL_GetVersion_S() = "2.5"
 EndIf
 
 
-; IDE Options = PureBasic 4.20 (Windows - x86)
+; IDE Options = PureBasic 4.40 (Windows - x86)
 ; CursorPosition = 28
-; Folding = -
-; EnableCompileCount = 1
+; EnableCompileCount = 2
 ; EnableBuildCount = 0

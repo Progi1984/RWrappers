@@ -1,6 +1,5 @@
 XIncludeFile "RW_LibMing_Inc.pb"
 
-  
 	m.SWFMovie = newSWFMovieWithVersion(8)
 
 	fill.SWFFillStyle = newSWFSolidFillStyle(255, 128, 0, 255)
@@ -15,3 +14,6 @@ XIncludeFile "RW_LibMing_Inc.pb"
 
 	SWFMovie_add(m, shape)
 	SWFMovie_save(m, "Samples\Sample_00.swf")
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 2
+; EnableXP
