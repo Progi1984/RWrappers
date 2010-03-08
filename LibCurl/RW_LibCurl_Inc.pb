@@ -14,11 +14,15 @@ CompilerSelect #PB_Compiler_OS
     Macro SymbolName(Val)
       DQuote _#Val#DQuote
     EndMacro
-    #LibCurl_ImportLib = "LibCurl.lib"
+    #LibCurl_ImportLib = "curllib.lib"
     #LibCurl_SeparatorDir = "\"
 CompilerEndSelect
 
 ;- Imports
+ImportC #PB_Compiler_Home + "PureLibraries\Windows\Libraries\msvcrt.lib"
+EndImport
+ImportC #PB_Compiler_Home + "PureLibraries\Windows\Libraries\oldnames.lib"
+EndImport
 ImportC #LibCurl_ImportLib
   curl_easy_cleanup(handle.l) As SymbolName(curl_easy_cleanup)
   curl_easy_duphandle(handle.l) As SymbolName(curl_easy_duphandle)
@@ -62,6 +66,8 @@ ImportC #LibCurl_ImportLib
   curl_multi_socket(*multi_handle, s.l, *running_handles) As SymbolName(curl_multi_socket)
   curl_multi_socket_action(*multi_handle, s.l, ev_bitmask.l, *running_handles) As SymbolName(curl_multi_socket_action)
   curl_multi_socket_all(*multi_handle, *running_handles) As SymbolName(curl_multi_socket_all)
+  curl_multi_setopt(multi_handle.l, option.l, param.l) As SymbolName(curl_multi_setopt)
+  curl_multi_timeout(multi_handle.l, timeout.l) As SymbolName(curl_multi_timeout)
   curl_share_cleanup(share_handle.l) As SymbolName(curl_share_cleanup)
   curl_share_init() As SymbolName(curl_share_init)
   curl_share_setopt(share.l, option.l, parameter.l) As SymbolName(curl_share_setopt)
@@ -98,7 +104,7 @@ ProcedureC  RW_LibCurl_WriteStrFunction(*ptr, Size, NMemB, *Stream)
   
   MyDataS = PeekS(*ptr, SizeProper * NMemBProper)
   ReceivedData + MyDataS
-  ;Debug "> " + MyDataS
+  Debug "> " + MyDataS
   ;Debug "# " + Str(Len(MyDataS))
   ;Debug "@ " + Str(Len(ReceivedData))
   ProcedureReturn SizeProper * NMemBProper
@@ -150,3 +156,8 @@ Procedure RW_LibCurl_GetData()
   CopyMemory(*LibCurl_SharedMem, *LibCurl_NewMemory, MemorySize(*LibCurl_SharedMem))
   ProcedureReturn *LibCurl_NewMemory
 EndProcedure
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 17
+; FirstLine = 4
+; Folding = HQ-
+; EnableXP

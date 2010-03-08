@@ -281,6 +281,22 @@ Enumeration ; CURLversion
   #CURLVERSION_FOURTH
   #CURLVERSION_LAST     ; never actually use this 
 EndEnumeration
+Enumeration ; CURLMcode
+  #CURLM_CALL_MULTI_PERFORM = -1 ; please call curl_multi_perform() Or curl_multi_socket*() soon
+  #CURLM_OK
+  #CURLM_BAD_HANDLE       ; the passed-in handle is Not a valid CURLM handle
+  #CURLM_BAD_EASY_HANDLE  ; an easy handle was Not good/valid
+  #CURLM_OUT_OF_MEMORY    ; If you ever get this, you're in deep sh*t
+  #CURLM_INTERNAL_ERROR   ; this is a libcurl bug
+  #CURLM_BAD_SOCKET       ; the passed in socket argument did Not match
+  #CURLM_UNKNOWN_OPTION   ; curl_multi_setopt() With unsupported option
+  #CURLM_LAST
+EndEnumeration 
+Enumeration ; CURLMSG
+	#CURLMSG_NONE           ; first, Not used
+	#CURLMSG_DONE           ; This easy handle has completed. 'result' contains the CURLcode of the transfer
+	#CURLMSG_LAST           ; last, Not used
+EndEnumeration  
 ;}
 
 ;{ Constantes 
@@ -886,8 +902,25 @@ EndEnumeration
 #CURL_VERSION_IDN       = 1<<10  ;International Domain Names support 
 #CURL_VERSION_SSPI      = 1<<11  ;SSPI is supported 
 #CURL_VERSION_CONV      = 1<<12  ;character conversions are supported 
-;}
 
+; This is the socket callback function pointer  
+#CURLMOPT_SOCKETFUNCTION = #CURLOPTTYPE_FUNCTIONPOINT + 1
+; This is the argument passed To the socket callback 
+#CURLMOPT_SOCKETDATA = #CURLOPTTYPE_OBJECTPOINT + 2
+; set To 1 To enable pipelining For this multi handle 
+#CURLMOPT_PIPELINING = #CURLOPTTYPE_LONG + 3
+; This is the timer callback function pointer 
+#CURLMOPT_TIMERFUNCTION = #CURLOPTTYPE_FUNCTIONPOINT + 4
+; This is the argument passed To the timer callback 
+#CURLMOPT_TIMERDATA = #CURLOPTTYPE_OBJECTPOINT + 5
+; maximum number of entries in the connection cache 
+#CURLMOPT_MAXCONNECTS = #CURLOPTTYPE_LONG + 6
+;}
+;{ Macros 
+  Macro CURLcode
+    l
+  EndMacro
+;}
 ;{ Structures }
   Structure Curl_HTTPPost
     *Next_.Curl_HTTPPost ; Next entry in the list 
@@ -938,4 +971,19 @@ EndEnumeration
     iconv_ver_num.l
     *libssh_version.s   ; human readable string 
   EndStructure
+  Structure CURLMsg
+   	msg.l               ; what this message means
+   	*easy_handle        ; the handle it concerns
+   	StructureUnion
+     	*whatever         ; message-specific data
+     	result.CURLcode   ; return code for transfer
+ 	  EndStructureUnion
+EndStructure 
 ;}
+
+
+
+; IDE Options = PureBasic 4.40 (Windows - x86)
+; CursorPosition = 297
+; FirstLine = 259
+; Folding = d9
