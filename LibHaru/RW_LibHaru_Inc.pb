@@ -139,7 +139,7 @@ ImportC "libhpdf.lib"
   HPDF_Page_Create3DAnnot.l(*page.HPDF_Page, *rect.HPDF_Rect, *u3d.HPDF_U3D) As "_HPDF_Page_Create3DAnnot" ; HPDF_Annotation
   HPDF_Page_CreateDestination.l(*page.HPDF_Page) As "_HPDF_Page_CreateDestination" ; HPDF_Destination
   HPDF_Page_CreateLinkAnnot.l(*page.HPDF_Page, *rect.HPDF_Rect, *dst.HPDF_Destination) As "_HPDF_Page_CreateLinkAnnot" ; HPDF_Annotation
-  HPDF_Page_CreateTextAnnot.l(*page.HPDF_Page, *rect.HPDF_Rect, text.s, encoder.HPDF_Encoder) As "_HPDF_Page_CreateTextAnnot" ; HPDF_Annotation
+  HPDF_Page_CreateTextAnnot.l(*page.HPDF_Page, *rect.HPDF_Rect, text.s, *encoder.HPDF_Encoder) As "_HPDF_Page_CreateTextAnnot" ; HPDF_Annotation
   HPDF_Page_CreateURILinkAnnot.l(*page.HPDF_Page,*rect.HPDF_Rect, uri.s) As "_HPDF_Page_CreateURILinkAnnot" ; HPDF_Annotation
   HPDF_Page_GetCMYKFill.l(*page.HPDF_Page) As "_HPDF_Page_GetCMYKFill" ; HPDF_CMYKColor
   HPDF_Page_GetCMYKStroke.l(*page.HPDF_Page) As "_HPDF_Page_GetCMYKStroke" ; HPDF_CMYKColor
